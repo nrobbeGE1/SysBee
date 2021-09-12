@@ -1738,7 +1738,11 @@ UART_RX
 Wire Wire Line
 	9250 4900 9600 4900
 $Comp
+<<<<<<< HEAD
 L B4B-XH-A_LF__SN_:B4B-XH-A(LF)(SN) LoRa1
+=======
+L carte_comptage-rescue:B4B-XH-A(LF)(SN)-B4B-XH-A_LF__SN_ LoRa
+>>>>>>> master
 U 1 1 613CA876
 P 8700 4050
 F 0 "LoRa1" H 8700 3800 50  0000 C CNN
