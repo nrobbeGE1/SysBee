@@ -40,26 +40,6 @@ X I0 9 500 700 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-<<<<<<< HEAD
-# B4B-XH-A_LF__SN__B4B-XH-A(LF)(SN)
-#
-DEF B4B-XH-A_LF__SN__B4B-XH-A(LF)(SN) J 0 40 Y Y 1 L N
-F0 "J" -100 320 50 H V L BNN
-F1 "B4B-XH-A_LF__SN__B4B-XH-A(LF)(SN)" -100 -300 50 H V L BNN
-F2 "JST_B4B-XH-A(LF)(SN)" 0 0 50 H I L BNN
-F3 "" 0 0 50 H I L BNN
-F4 "Manufacturer Recommendation" 0 0 50 H I L BNN "STANDARD"
-F5 "JST Sales America Inc" 0 0 50 H I L BNN "MANUFACTURER"
-F6 "NA" 0 0 50 H I L BNN "PARTREV"
-DRAW
-S -100 -200 100 300 0 0 10 f
-X 1 1 300 200 200 L 40 40 0 0 P
-X 2 2 300 100 200 L 40 40 0 0 P
-X 3 3 300 0 200 L 40 40 0 0 P
-X 4 4 300 -100 200 L 40 40 0 0 P
-ENDDRAW
-ENDDEF
-#
 # Connector_Conn_01x03_Male
 #
 DEF Connector_Conn_01x03_Male J 0 40 Y N 1 F N
@@ -83,8 +63,32 @@ X Pin_3 3 200 -100 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-=======
->>>>>>> master
+# Connector_Conn_01x04_Female
+#
+DEF Connector_Conn_01x04_Female J 0 40 Y N 1 F N
+F0 "J" 0 200 50 H V C CNN
+F1 "Connector_Conn_01x04_Female" 0 -300 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ Connector*:*_1x??_*
+$ENDFPLIST
+DRAW
+A 0 -200 20 901 -901 1 1 6 N 0 -180 0 -220
+A 0 -100 20 901 -901 1 1 6 N 0 -80 0 -120
+A 0 0 20 901 -901 1 1 6 N 0 20 0 -20
+A 0 100 20 901 -901 1 1 6 N 0 120 0 80
+P 2 1 1 6 -50 -200 -20 -200 N
+P 2 1 1 6 -50 -100 -20 -100 N
+P 2 1 1 6 -50 0 -20 0 N
+P 2 1 1 6 -50 100 -20 100 N
+X Pin_1 1 -200 100 150 R 50 50 1 1 P
+X Pin_2 2 -200 0 150 R 50 50 1 1 P
+X Pin_3 3 -200 -100 150 R 50 50 1 1 P
+X Pin_4 4 -200 -200 150 R 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
 # Connector_Generic_Conn_01x02
 #
 DEF Connector_Generic_Conn_01x02 J 0 40 Y N 1 F N
@@ -536,25 +540,6 @@ X 3 3 -500 0 200 R 40 40 0 0 P
 X 4 4 500 0 200 L 40 40 0 0 P
 X 5 5 -500 -100 200 R 40 40 0 0 P
 X 6 6 500 -100 200 L 40 40 0 0 P
-ENDDRAW
-ENDDEF
-#
-# carte_comptage-rescue_B4B-XH-A(LF)(SN)-B4B-XH-A_LF__SN_
-#
-DEF carte_comptage-rescue_B4B-XH-A(LF)(SN)-B4B-XH-A_LF__SN_ J 0 40 Y Y 1 L N
-F0 "J" -100 320 50 H V L BNN
-F1 "carte_comptage-rescue_B4B-XH-A(LF)(SN)-B4B-XH-A_LF__SN_" -100 -300 50 H V L BNN
-F2 "JST_B4B-XH-A(LF)(SN)" 0 0 50 H I L BNN
-F3 "" 0 0 50 H I L BNN
-F4 "Manufacturer Recommendation" 0 0 50 H I L BNN "STANDARD"
-F5 "JST Sales America Inc" 0 0 50 H I L BNN "MANUFACTURER"
-F6 "NA" 0 0 50 H I L BNN "PARTREV"
-DRAW
-S -100 -200 100 300 0 0 10 f
-X 1 1 300 200 200 L 40 40 0 0 P
-X 2 2 300 100 200 L 40 40 0 0 P
-X 3 3 300 0 200 L 40 40 0 0 P
-X 4 4 300 -100 200 L 40 40 0 0 P
 ENDDRAW
 ENDDEF
 #
