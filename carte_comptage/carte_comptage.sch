@@ -1144,7 +1144,7 @@ U 1 1 6131EBBB
 P 8800 2550
 F 0 "SWrst1" V 8846 2502 50  0000 R CNN
 F 1 "SW_Push" V 8755 2502 50  0000 R CNN
-F 2 "" H 8800 2750 50  0001 C CNN
+F 2 "Button_Switch_SMD:SW_SPST_TL3305C" H 8800 2750 50  0001 C CNN
 F 3 "~" H 8800 2750 50  0001 C CNN
 	1    8800 2550
 	0    -1   -1   0   
@@ -1799,12 +1799,6 @@ NoConn ~ 10300 3900
 NoConn ~ 10300 4000
 Wire Wire Line
 	7600 1650 7600 1700
-Wire Wire Line
-	2900 3450 2450 3450
-Wire Wire Line
-	2450 3350 2900 3350
-Text Label 750  5600 0    50   ~ 0
-HSE_IN
 Wire Notes Line
 	4650 6450 4650 2150
 Wire Notes Line
@@ -1941,8 +1935,6 @@ Text Label 600  4350 0    50   ~ 0
 LSE_IN
 Wire Wire Line
 	1600 4800 1600 4750
-Wire Wire Line
-	750  5600 1050 5600
 Connection ~ 950  4350
 Wire Wire Line
 	950  4350 1050 4350
@@ -1950,8 +1942,6 @@ Wire Wire Line
 	950  4800 1200 4800
 Wire Wire Line
 	600  4350 950  4350
-Text Label 2450 3350 0    50   ~ 0
-HSE_IN
 Text Label 2450 3750 0    50   ~ 0
 LSE_IN
 Text Label 2450 3850 0    50   ~ 0
@@ -2125,6 +2115,8 @@ Text Label 8850 4200 0    50   ~ 0
 LoRa_TX
 Text Label 8850 4300 0    50   ~ 0
 LoRa_RX
+NoConn ~ 2900 3350
+NoConn ~ 2900 3450
 Wire Bus Line
 	5250 4000 7750 4000
 Wire Bus Line
