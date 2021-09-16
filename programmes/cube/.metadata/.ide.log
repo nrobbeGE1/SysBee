@@ -833,3 +833,7 @@
 2021-09-14 16:32:53,030 [WARN] IP:2125 - AutoBaudRateEnableParam not found: check if there is a RefParameter without a condition.
 2021-09-14 16:32:53,037 [WARN] IP:2125 - AutoBaudRateEnableParam not found: check if there is a RefParameter without a condition.
 2021-09-14 16:32:53,038 [WARN] IP:2125 - AutoBaudRateEnableParam not found: check if there is a RefParameter without a condition.
+2021-09-16 09:19:17,821 [INFO] Activator:177 - 
+
+
+2021-09-16 09:19:17,823 [INFO] Activator:178 - !SESSION log4j initialized
