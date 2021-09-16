@@ -1,4 +1,215 @@
-EESchema Schematic File Version 2
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 30 0
 EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector_Generic:Conn_02x04_Counter_Clockwise LoRa1
+U 1 1 61424C97
+P 4350 2200
+F 0 "LoRa1" H 4400 2425 50  0000 C CNN
+F 1 "Conn_02x04_Counter_Clockwise" H 4400 2426 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 4350 2200 50  0001 C CNN
+F 3 "~" H 4350 2200 50  0001 C CNN
+	1    4350 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 6142571F
+P 3600 2200
+F 0 "#PWR0101" H 3600 1950 50  0001 C CNN
+F 1 "GND" H 3650 2250 50  0000 C CNN
+F 2 "" H 3600 2200 50  0001 C CNN
+F 3 "" H 3600 2200 50  0001 C CNN
+	1    3600 2200
+	1    0    0    -1  
+$EndComp
+Text Label 5000 2300 2    50   ~ 0
+NRST
+$Comp
+L power:+3.3V #PWR0102
+U 1 1 614263C6
+P 4150 2400
+F 0 "#PWR0102" H 4150 2250 50  0001 C CNN
+F 1 "+3.3V" V 4050 2400 50  0000 C CNN
+F 2 "" H 4150 2400 50  0001 C CNN
+F 3 "" H 4150 2400 50  0001 C CNN
+	1    4150 2400
+	0    -1   -1   0   
+$EndComp
+Text Label 3750 2100 0    50   ~ 0
+SPI_SCK
+Text Label 3750 2300 0    50   ~ 0
+SPI_MISO
+Text Label 5000 2400 2    50   ~ 0
+SPI_MOSI
+Text Label 5000 2200 2    50   ~ 0
+SPI_NSS
+$Comp
+L Connector_Generic:Conn_01x06 J2
+U 1 1 61429110
+P 5950 1950
+F 0 "J2" H 5900 1550 50  0000 L CNN
+F 1 "Conn_01x06" H 6030 1851 50  0001 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x06_P2.54mm_Vertical" H 5950 1950 50  0001 C CNN
+F 3 "~" H 5950 1950 50  0001 C CNN
+	1    5950 1950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x08 J3
+U 1 1 614298C8
+P 5950 2700
+F 0 "J3" H 5900 3100 50  0000 L CNN
+F 1 "Conn_01x08" H 6030 2601 50  0001 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" H 5950 2700 50  0001 C CNN
+F 3 "~" H 5950 2700 50  0001 C CNN
+	1    5950 2700
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x08 J1
+U 1 1 6142B43C
+P 5750 1950
+F 0 "J1" H 5700 2350 50  0000 L CNN
+F 1 "Conn_01x08" H 5830 1851 50  0001 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" H 5750 1950 50  0001 C CNN
+F 3 "~" H 5750 1950 50  0001 C CNN
+	1    5750 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x10 J4
+U 1 1 6142D4C6
+P 5750 2900
+F 0 "J4" H 5750 2300 50  0000 C CNN
+F 1 "Conn_01x10" H 5668 3426 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical" H 5750 2900 50  0001 C CNN
+F 3 "~" H 5750 2900 50  0001 C CNN
+	1    5750 2900
+	1    0    0    -1  
+$EndComp
+Text Label 5150 3000 0    50   ~ 0
+SPI_SCK
+Text Label 5150 2900 0    50   ~ 0
+SPI_MISO
+Text Label 5150 2800 0    50   ~ 0
+SPI_MOSI
+Text Label 5150 2700 0    50   ~ 0
+SPI_NSS
+Wire Wire Line
+	5550 3100 5150 3100
+$Comp
+L power:GND #PWR0103
+U 1 1 6142F40C
+P 5150 3150
+F 0 "#PWR0103" H 5150 2900 50  0001 C CNN
+F 1 "GND" H 5250 3150 50  0000 C CNN
+F 2 "" H 5150 3150 50  0001 C CNN
+F 3 "" H 5150 3150 50  0001 C CNN
+	1    5150 3150
+	1    0    0    -1  
+$EndComp
+Text Label 6500 2150 2    50   ~ 0
+NRST
+$Comp
+L power:+3.3V #PWR0104
+U 1 1 6143106F
+P 6400 2700
+F 0 "#PWR0104" H 6400 2550 50  0001 C CNN
+F 1 "+3.3V" H 6400 2650 50  0000 C CNN
+F 2 "" H 6400 2700 50  0001 C CNN
+F 3 "" H 6400 2700 50  0001 C CNN
+	1    6400 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 2150 6150 2150
+Wire Wire Line
+	5150 3150 5150 3100
+Wire Wire Line
+	6150 2400 6300 2400
+Wire Wire Line
+	6300 2400 6300 2500
+Wire Wire Line
+	6300 2500 6150 2500
+Wire Wire Line
+	6300 2400 6500 2400
+Wire Wire Line
+	6500 2400 6500 2450
+Connection ~ 6300 2400
+$Comp
+L power:GND #PWR0105
+U 1 1 6144849B
+P 6500 2450
+F 0 "#PWR0105" H 6500 2200 50  0001 C CNN
+F 1 "GND" H 6450 2550 50  0000 C CNN
+F 2 "" H 6500 2450 50  0001 C CNN
+F 3 "" H 6500 2450 50  0001 C CNN
+	1    6500 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5150 2700 5550 2700
+Wire Wire Line
+	5550 2800 5150 2800
+Wire Wire Line
+	5150 2900 5550 2900
+Wire Wire Line
+	5550 3000 5150 3000
+Wire Wire Line
+	6400 2700 6150 2700
+Text Label 5150 1850 0    50   ~ 0
+DIO0
+Wire Wire Line
+	5150 1850 5550 1850
+Text Label 5000 2100 2    50   ~ 0
+DIO0
+Wire Wire Line
+	5000 2200 4650 2200
+Wire Wire Line
+	4650 2100 5000 2100
+NoConn ~ 5550 1650
+NoConn ~ 5550 1750
+NoConn ~ 5550 1950
+NoConn ~ 5550 2050
+NoConn ~ 5550 2150
+NoConn ~ 5550 2250
+NoConn ~ 5550 2350
+NoConn ~ 5550 2500
+NoConn ~ 5550 2600
+NoConn ~ 5550 3200
+NoConn ~ 5550 3300
+NoConn ~ 5550 3400
+NoConn ~ 6150 3000
+NoConn ~ 6150 2900
+NoConn ~ 6150 2800
+NoConn ~ 6150 2600
+NoConn ~ 6150 2300
+NoConn ~ 6150 2050
+NoConn ~ 6150 1950
+NoConn ~ 6150 1850
+NoConn ~ 6150 1750
+NoConn ~ 6150 1650
+Wire Wire Line
+	3750 2100 4150 2100
+Wire Wire Line
+	5000 2400 4650 2400
+Wire Wire Line
+	3600 2200 4150 2200
+Wire Wire Line
+	5000 2300 4650 2300
+Wire Wire Line
+	3750 2300 4150 2300
 $EndSCHEMATC
