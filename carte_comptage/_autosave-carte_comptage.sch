@@ -586,12 +586,12 @@ F 3 "http://www.ti.com/lit/ds/symlink/cd74hc4067.pdf" H 5700 4050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1200 1300 850  1300
+	2800 1300 3150 1300
 Wire Wire Line
-	850  1200 1200 1200
-Text Label 850  1300 0    50   ~ 0
+	3150 1200 2800 1200
+Text Label 3150 1300 2    50   ~ 0
 USB_D-
-Text Label 850  1200 0    50   ~ 0
+Text Label 3150 1200 2    50   ~ 0
 USB_D+
 Text Notes 8450 3100 0    50   ~ 0
 BOUTONS
@@ -672,8 +672,6 @@ NoConn ~ 2800 1700
 NoConn ~ 1200 1400
 NoConn ~ 1200 1100
 NoConn ~ 2800 1100
-NoConn ~ 2800 1200
-NoConn ~ 2800 1300
 $Comp
 L carte_comptage-rescue:USB4105-GF-A-USB4105-GF-A USB1
 U 1 1 614259E4
@@ -873,8 +871,8 @@ Wire Wire Line
 	9200 1000 9650 1000
 Wire Wire Line
 	9200 1100 9650 1100
-Text Label 10950 1600 2    50   ~ 0
-XBEE_SLEEPING
+Text Label 10700 1600 2    50   ~ 0
+SLEEPING
 Wire Notes Line
 	6850 6550 6850 7750
 Wire Notes Line
@@ -902,7 +900,7 @@ Wire Wire Line
 Wire Wire Line
 	2450 4450 2900 4450
 Text Label 9200 1700 0    50   ~ 0
-XBEE_SLEEP
+SLEEP
 Wire Wire Line
 	9200 1700 9650 1700
 NoConn ~ 10200 900 
@@ -1070,15 +1068,8 @@ Wire Wire Line
 	2450 3750 2900 3750
 Wire Wire Line
 	2900 3850 2450 3850
-NoConn ~ 2900 3650
 Wire Wire Line
-	10950 1600 10200 1600
-NoConn ~ 4200 4750
-NoConn ~ 4200 4650
-NoConn ~ 2900 4050
-NoConn ~ 2900 4250
-NoConn ~ 2900 3350
-NoConn ~ 2900 3450
+	10700 1600 10200 1600
 Text Label 4950 1200 2    50   ~ 0
 NRST
 $Comp
@@ -1150,15 +1141,13 @@ Wire Wire Line
 	2900 5450 2450 5450
 Wire Wire Line
 	2450 5550 2900 5550
-NoConn ~ 4200 4050
-NoConn ~ 4200 4150
 Text Label 4550 4250 2    50   ~ 0
 UART_TX
 Text Label 4550 4350 2    50   ~ 0
 UART_RX
-Text Label 4550 4450 2    50   ~ 0
+Text Label 2450 4250 0    50   ~ 0
 LED_R
-Text Label 4550 4550 2    50   ~ 0
+Text Label 2450 5050 0    50   ~ 0
 LED_V
 Text Label 4550 5050 2    50   ~ 0
 BUCK_EN
@@ -1192,27 +1181,17 @@ Text Label 2450 5250 0    50   ~ 0
 SPI_NSS
 Wire Wire Line
 	2450 5250 2900 5250
-Text Label 2450 4650 0    50   ~ 0
+Text Label 2450 3450 0    50   ~ 0
 S0
-Text Label 2450 4850 0    50   ~ 0
+Text Label 2450 3350 0    50   ~ 0
 S2
-Text Label 2450 4950 0    50   ~ 0
+Text Label 2450 3650 0    50   ~ 0
 S3
-Text Label 2450 4750 0    50   ~ 0
+Text Label 4550 4050 2    50   ~ 0
 S1
-Wire Wire Line
-	2450 4650 2900 4650
-Wire Wire Line
-	2450 4750 2900 4750
-Wire Wire Line
-	2450 4850 2900 4850
-Wire Wire Line
-	2450 4950 2900 4950
-Text Label 2450 4550 0    50   ~ 0
+Text Label 4550 4450 2    50   ~ 0
 MUX2
-Wire Wire Line
-	2450 4550 2900 4550
-Text Label 4550 5550 2    50   ~ 0
+Text Label 4550 4150 2    50   ~ 0
 MUX1
 Wire Wire Line
 	4550 5550 4200 5550
@@ -1221,8 +1200,7 @@ DIO0
 NoConn ~ 4200 4950
 Wire Wire Line
 	4550 4850 4200 4850
-NoConn ~ 2900 5050
-Text Label 2450 5150 0    50   ~ 0
+Text Label 4550 4650 2    50   ~ 0
 1W
 $Comp
 L Connector_Generic:Conn_01x03 Jtemp1
@@ -1230,7 +1208,7 @@ U 1 1 618B9778
 P 6400 1350
 F 0 "Jtemp1" H 6200 1550 50  0000 L CNN
 F 1 "Conn_01x03" H 6480 1301 50  0001 L CNN
-F 2 "Connector_JST:JST_EH_B3B-EH-A_1x03_P2.50mm_Vertical" H 6400 1350 50  0001 C CNN
+F 2 "Connector_JST:JST_EH_S3B-EH_1x03_P2.50mm_Horizontal" H 6400 1350 50  0001 C CNN
 F 3 "~" H 6400 1350 50  0001 C CNN
 	1    6400 1350
 	1    0    0    -1  
@@ -1714,8 +1692,34 @@ Wire Wire Line
 	8050 4150 8050 4050
 Text Label 4850 4200 0    50   ~ 0
 Q[0..31]
+Wire Wire Line
+	2450 3350 2900 3350
+Wire Wire Line
+	2900 3450 2450 3450
+Wire Wire Line
+	2450 3650 2900 3650
+Wire Wire Line
+	4200 4050 4550 4050
+Text Label 2450 4050 0    50   ~ 0
+SLEEPING
+Text Label 4550 5550 2    50   ~ 0
+SLEEP
+Wire Wire Line
+	4200 4150 4550 4150
+Wire Wire Line
+	2900 4250 2450 4250
+Wire Wire Line
+	2450 5050 2900 5050
+Wire Wire Line
+	2900 4050 2450 4050
+Wire Wire Line
+	4550 4650 4200 4650
+NoConn ~ 1200 1200
+NoConn ~ 1200 1300
 Wire Bus Line
 	4850 5950 6650 5950
 Wire Bus Line
 	4850 4000 7050 4000
+Text Label 4550 4550 2    50   ~ 0
+LED_EN
 $EndSCHEMATC
