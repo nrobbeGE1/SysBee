@@ -40,53 +40,6 @@ X I0 9 500 700 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# B0530W-7-F_B0530W-7-F
-#
-DEF B0530W-7-F_B0530W-7-F D 0 40 N N 1 L N
-F0 "D" -100 100 50 H V L BNN
-F1 "B0530W-7-F_B0530W-7-F" -100 -100 50 H V L BNN
-F2 "SOD3715X145N" 0 0 50 H I L BNN
-F3 "" 0 0 50 H I L BNN
-F4 "IPC-7351B" 0 0 50 H I L BNN "STANDARD"
-F5 "DIODES" 0 0 50 H I L BNN "MANUFACTURER"
-F6 "9-2" 0 0 50 H I L BNN "PARTREV"
-DRAW
-P 2 0 0 10 -50 -50 50 0 N
-P 2 0 0 10 -50 0 -100 0 N
-P 2 0 0 10 -50 0 -50 -50 N
-P 2 0 0 10 -50 50 -50 0 N
-P 2 0 0 10 25 -40 25 -50 N
-P 2 0 0 10 50 -50 25 -50 N
-P 2 0 0 10 50 0 -50 50 N
-P 2 0 0 10 50 0 50 -50 N
-P 2 0 0 10 50 0 100 0 N
-P 2 0 0 10 50 50 50 0 N
-P 2 0 0 10 75 50 50 50 N
-P 2 0 0 10 75 50 75 40 N
-X ~ A -200 0 100 R 40 40 0 0 P
-X ~ C 200 0 100 L 40 40 0 0 P
-ENDDRAW
-ENDDEF
-#
-# Connector_Generic_Conn_01x02
-#
-DEF Connector_Generic_Conn_01x02 J 0 40 Y N 1 F N
-F0 "J" 0 100 50 H V C CNN
-F1 "Connector_Generic_Conn_01x02" 0 -200 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Connector*:*_1x??_*
-$ENDFPLIST
-DRAW
-S -50 -95 0 -105 1 1 6 N
-S -50 5 0 -5 1 1 6 N
-S -50 50 50 -150 1 1 10 f
-X Pin_1 1 -200 0 150 R 50 50 1 1 P
-X Pin_2 2 -200 -100 150 R 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # Connector_Generic_Conn_01x03
 #
 DEF Connector_Generic_Conn_01x03 J 0 40 Y N 1 F N
@@ -256,41 +209,6 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Device_L_Core_Ferrite
-#
-DEF Device_L_Core_Ferrite L 0 40 N N 1 F N
-F0 "L" -50 0 50 V V C CNN
-F1 "Device_L_Core_Ferrite" 110 0 50 V V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- Choke_*
- *Coil*
- Inductor_*
- L_*
-$ENDFPLIST
-DRAW
-A 0 -75 25 -899 899 0 1 0 N 0 -100 0 -50
-A 0 -25 25 -899 899 0 1 0 N 0 -50 0 0
-A 0 25 25 -899 899 0 1 0 N 0 0 0 50
-A 0 75 25 -899 899 0 1 0 N 0 50 0 100
-P 2 0 1 0 40 -110 40 -90 N
-P 2 0 1 0 40 -70 40 -50 N
-P 2 0 1 0 40 -30 40 -10 N
-P 2 0 1 0 40 10 40 30 N
-P 2 0 1 0 40 50 40 70 N
-P 2 0 1 0 40 90 40 110 N
-P 2 0 1 0 60 -90 60 -110 N
-P 2 0 1 0 60 -50 60 -70 N
-P 2 0 1 0 60 -10 60 -30 N
-P 2 0 1 0 60 30 60 10 N
-P 2 0 1 0 60 70 60 50 N
-P 2 0 1 0 60 110 60 90 N
-X 1 1 0 150 50 D 50 50 1 1 P
-X 2 2 0 -150 50 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # Device_Polyfuse
 #
 DEF Device_Polyfuse F 0 0 N Y 1 F N
@@ -342,26 +260,6 @@ DRAW
 S -30 70 30 -70 0 1 8 N
 X ~ 1 0 100 30 D 50 50 1 1 P
 X ~ 2 0 -100 30 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Diode_B340
-#
-DEF Diode_B340 D 0 40 N N 1 F N
-F0 "D" 0 100 50 H V C CNN
-F1 "Diode_B340" 0 -100 50 H V C CNN
-F2 "Diode_SMD:D_SMC" 0 -175 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-ALIAS B330 B340 B350 B360
-$FPLIST
- D*SMC*
-$ENDFPLIST
-DRAW
-P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
-P 6 0 1 10 -75 25 -75 50 -50 50 -50 -50 -25 -50 -25 -25 N
-X K 1 -150 0 100 R 50 50 1 1 P
-X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
@@ -547,66 +445,6 @@ X 6 6 500 -100 200 L 40 40 0 0 P
 ENDDRAW
 ENDDEF
 #
-# carte_comptage-rescue_BSS138-dk_Transistors-FETs-MOSFETs-Single
-#
-DEF carte_comptage-rescue_BSS138-dk_Transistors-FETs-MOSFETs-Single Q 0 0 Y Y 1 F N
-F0 "Q" -106 143 60 H V R CNN
-F1 "carte_comptage-rescue_BSS138-dk_Transistors-FETs-MOSFETs-Single" 136 0 60 V V C CNN
-F2 "digikey-footprints:SOT-23-3" 200 200 60 H I L CNN
-F3 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" 200 300 60 H I L CNN
-F4 "BSS138CT-ND" 200 400 60 H I L CNN "Digi-Key_PN"
-F5 "BSS138" 200 500 60 H I L CNN "MPN"
-F6 "Discrete Semiconductor Products" 200 600 60 H I L CNN "Category"
-F7 "Transistors - FETs, MOSFETs - Single" 200 700 60 H I L CNN "Family"
-F8 "https://www.onsemi.com/pub/Collateral/BSS138-D.PDF" 200 800 60 H I L CNN "DK_Datasheet_Link"
-F9 "/product-detail/en/on-semiconductor/BSS138/BSS138CT-ND/244294" 200 900 60 H I L CNN "DK_Detail_Page"
-F10 "MOSFET N-CH 50V 220MA SOT-23" 200 1000 60 H I L CNN "Description"
-F11 "ON Semiconductor" 200 1100 60 H I L CNN "Manufacturer"
-F12 "Active" 200 1200 60 H I L CNN "Status"
-DRAW
-C -50 0 130 0 1 0 f
-C 0 -75 5 0 1 0 N
-C 0 -55 5 0 1 0 N
-C 0 75 5 0 1 0 N
-P 2 0 1 0 0 -55 -100 -55 N
-P 3 0 1 0 -200 -100 -120 -100 -120 55 N
-P 3 0 1 0 0 -100 0 0 -100 0 N
-P 3 0 1 0 0 100 0 55 -100 55 N
-P 5 0 1 0 -5 -75 40 -75 40 55 40 75 -5 75 N
-P 2 1 1 0 -100 -55 -100 -75 N
-P 2 1 1 0 -100 -55 -100 -35 N
-P 2 1 1 0 -100 0 -100 -20 N
-P 2 1 1 0 -100 0 -100 20 N
-P 2 1 1 0 -100 75 -100 35 N
-P 2 1 1 0 60 20 20 20 N
-P 4 1 1 0 -100 0 -70 20 -70 -20 -100 0 F
-P 4 1 1 0 40 20 20 -10 60 -10 40 20 F
-X G 1 -300 -100 100 R 50 50 1 1 B
-X S 2 0 -200 100 U 50 50 1 1 B
-X D 3 0 200 100 D 50 50 1 1 B
-ENDDRAW
-ENDDEF
-#
-# carte_comptage-rescue_TPS54331D-TPS54331D
-#
-DEF carte_comptage-rescue_TPS54331D-TPS54331D U 0 40 Y Y 1 L N
-F0 "U" -500 539 50 H V L BNN
-F1 "carte_comptage-rescue_TPS54331D-TPS54331D" -500 -657 50 H V L BNN
-F2 "SOIC127P599X175-8N" 0 0 50 H I L BNN
-F3 "" 0 0 50 H I L BNN
-DRAW
-S -500 -500 500 500 0 0 16 f
-X BOOT 1 -700 400 200 R 40 40 0 0 I
-X VIN 2 -700 0 200 R 40 40 0 0 I
-X EN 3 -700 300 200 R 40 40 0 0 I
-X SS 4 -700 100 200 R 40 40 0 0 I
-X VSENSE 5 -700 -100 200 R 40 40 0 0 I
-X COMP 6 700 400 200 L 40 40 0 0 O
-X GND 7 700 -400 200 L 40 40 0 0 W
-X PH 8 -700 200 200 R 40 40 0 0 I
-ENDDRAW
-ENDDEF
-#
 # carte_comptage-rescue_USB4105-GF-A-USB4105-GF-A
 #
 DEF carte_comptage-rescue_USB4105-GF-A-USB4105-GF-A J 0 40 Y Y 1 L N
@@ -652,21 +490,6 @@ P 2 0 1 0 -30 50 0 100 N
 P 2 0 1 0 0 0 0 100 N
 P 2 0 1 0 0 100 30 50 N
 X +3V3 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_+BATT
-#
-DEF power_+BATT #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+BATT" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +BATT 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
