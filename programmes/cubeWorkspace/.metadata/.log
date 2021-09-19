@@ -1,0 +1,29 @@
+!SESSION 2021-09-18 20:02:15.586 -----------------------------------------------
+eclipse.buildId=Version 1.7.0
+java.version=11.0.10
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2021-09-18 20:02:31.981
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2021-09-18 20:02:32.038
+!MESSAGE Log4j initialized with config file C:\Documents\Travail\SysBee\programmes\cubeWorkspace\.metadata\.log4j.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2021-09-18 20:02:36.207
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-09-18 20:04:24.962
+!MESSAGE Indexed 'SysBee_Test_Nucleo' (24 sources, 84 headers) in 1.72 sec: 5,164 declarations; 31,284 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0055%)
+
+!ENTRY org.eclipse.remote.console 4 0 2021-09-18 20:26:18.336
+!MESSAGE Error opening \\.\COM4 (2)
+!STACK 0
+java.io.IOException: Error opening \\.\COM4 (2)
+	at org.eclipse.cdt.serial.SerialPort.open0(Native Method)
+	at org.eclipse.cdt.serial.SerialPort.open(SerialPort.java:316)
+	at org.eclipse.remote.serial.core.SerialPortCommandShell.<init>(SerialPortCommandShell.java:31)
+	at org.eclipse.remote.serial.core.SerialPortConnection.getCommandShell(SerialPortConnection.java:90)
+	at org.eclipse.remote.internal.console.TerminalConsoleConnector$1.run(TerminalConsoleConnector.java:137)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
