@@ -31,8 +31,6 @@ Wire Notes Line
 	11200 500  500  500 
 Wire Notes Line
 	500  2050 11200 2050
-Wire Wire Line
-	2450 5150 2900 5150
 Connection ~ 3400 5900
 Wire Wire Line
 	3400 6000 3400 5900
@@ -1716,10 +1714,17 @@ Wire Wire Line
 	4550 4650 4200 4650
 NoConn ~ 1200 1200
 NoConn ~ 1200 1300
+Text Label 4550 4550 2    50   ~ 0
+LED_EN
+NoConn ~ 2900 4550
+NoConn ~ 2900 4650
+NoConn ~ 2900 4750
+NoConn ~ 2900 4850
+NoConn ~ 2900 4950
+NoConn ~ 4200 4750
+NoConn ~ 2900 5150
 Wire Bus Line
 	4850 5950 6650 5950
 Wire Bus Line
 	4850 4000 7050 4000
-Text Label 4550 4550 2    50   ~ 0
-LED_EN
 $EndSCHEMATC
