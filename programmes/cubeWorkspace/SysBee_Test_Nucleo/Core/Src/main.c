@@ -46,7 +46,7 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 
-uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB4};
+uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x2D, 0x90, 0x00, 0x13, 0xA2, 0x00, 0x41, 0x7D, 0x01, 0x20, 0x00, 0x00, 0x02, 0x54, 0x45, 0x53, 0x54, 0x20, 0x74, 0x72, 0x75, 0x63, 0x6D, 0x75, 0x63, 0x68, 0x65, 0x20, 0x6A, 0x27, 0x65, 0x6E, 0x76, 0x6F, 0x69, 0x65, 0x20, 0x64, 0x65, 0x73, 0x20, 0x74, 0x72, 0x75, 0x63, 0x73, 0xC5};
 uint8_t xbee_rx_read_index = 0;
 uint8_t xbee_rx_write_index = 25;
 
@@ -127,7 +127,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	  if(xbee_rx_read_index<xbee_rx_write_index){
-		  uint32_t sum = 0;
+		  uint64_t sum = 0;
 		  static uint8_t multiple_byte_step;
 		  switch (state){
 			  case idle:
@@ -135,47 +135,66 @@ int main(void)
 			  break;
 
 			  case frame_length:
-				  if(recieved_frame.length==0xFFFF) recieved_frame.length = ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) <<8;
-				  else{
-					  recieved_frame.length += xbee_rx_buffer[xbee_rx_read_index];
+				  recieved_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
+				  if(multiple_byte_step){
+					  multiple_byte_step = 0;
 					  state = frame_type;
+				  }
+				  else{
+					  multiple_byte_step++;
 				  }
 			  break;
 
 			  case frame_type:
 				  recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_content;
+				  state = frame_address64;
+				  multiple_byte_step = 0;
 			  break;
 
 			  case frame_address64:
-				  recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_content;
+				  recieved_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
+
+				  if(multiple_byte_step == 7){
+					  state = frame_address16;
+					  multiple_byte_step = 0;
+				  }
+				  else multiple_byte_step++;
 			  break;
 
 			  case frame_address16:
-				  recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_content;
+				  recieved_frame.type += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
+				  if(multiple_byte_step == 1){
+					  state = frame_option;
+					  multiple_byte_step = 0;
+				  }
+				  else multiple_byte_step++;
 			  break;
 
 			  case frame_option:
-				  recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
+				  recieved_frame.option = xbee_rx_buffer[xbee_rx_read_index];
 				  state = frame_content;
 			  break;
 
 			  case frame_content:
-				  if(recieved_frame.content_index < recieved_frame.length){
-					  recieved_frame.content[recieved_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+				  recieved_frame.content[recieved_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+				  if(recieved_frame.content_index == recieved_frame.length-13)
+					  state = check_sum;
+				  else
 					  recieved_frame.content_index++;
-					  if(recieved_frame.content_index = recieved_frame.length) state = check_sum;
-				  }
 			  break;
 
 			  case check_sum:
 				  recieved_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
-				  for(uint16_t i=0; i<recieved_frame.length; i++) sum += recieved_frame.content[i];
-				  sum += recieved_frame.type + recieved_frame.check_sum;
-				  recieved_frame.check_sum_ok = ((sum & 0b11110000)>>4) == (sum & 0b00001111);
+				  for(uint8_t i=0; i<8; i++) sum+= (((uint64_t)0xFF<<(56-8*i)) & recieved_frame.address64)>>(56-8*i);
+				  for(uint8_t i=0; i<2; i++) sum+= (((uint16_t)0xFF<<(8-8*i)) & recieved_frame.address16)>>(8-i*8);
+				  for(uint16_t i=0; i<recieved_frame.length-12; i++) sum += recieved_frame.content[i];
+				  sum += recieved_frame.type + recieved_frame.option + recieved_frame.check_sum;
+				  recieved_frame.check_sum_ok = ((sum & 0xF0)>>4) == (sum & 0x0F);
 				  state = idle;
+			  break;
+
+			  case process_content:
+				  0;
 			  break;
 		  }
 

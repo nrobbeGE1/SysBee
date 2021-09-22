@@ -1,13 +1,10 @@
-18:05:10 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+22:36:29 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:150:11: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
-  150 |        if(recieved_frame.content_index = recieved_frame.length) state = check_sum;
-      |           ^~~~~~~~~~~~~~
-../Core/Src/main.c:128:5: warning: enumeration value 'process_content' not handled in switch [-Wswitch]
-  128 |     switch (state){
-      |     ^~~~~~
+../Core/Src/main.c:197:7: warning: statement with no effect [-Wunused-value]
+  197 |       0;
+      |       ^
 arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: SysBee_Test_Nucleo.elf
  
@@ -15,13 +12,13 @@ arm-none-eabi-size   SysBee_Test_Nucleo.elf
 arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
 arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
    text	   data	    bss	    dec	    hex	filename
-  10604	    544	   1840	  12988	   32bc	SysBee_Test_Nucleo.elf
+  11248	    280	   2120	  13648	   3550	SysBee_Test_Nucleo.elf
 Finished building: default.size.stdout
  
 Finished building: SysBee_Test_Nucleo.bin
+ 
 Finished building: SysBee_Test_Nucleo.list
  
- 
 
-18:05:10 Build Finished. 0 errors, 2 warnings. (took 779ms)
+22:36:30 Build Finished. 0 errors, 1 warnings. (took 1s.434ms)
 
