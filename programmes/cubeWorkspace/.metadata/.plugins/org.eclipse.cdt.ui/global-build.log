@@ -1,4 +1,4 @@
-20:05:17 **** Build of configuration Debug for project SysBee_Test_Nucleo ****
+16:46:41 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
 make -j12 all 
 arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.d" -MT"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal.o"
 arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.d" -MT"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_cortex.o"
@@ -18,243 +18,102 @@ arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim.c" -mcp
 arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.d" -MT"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_tim_ex.o"
 arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.d" -MT"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart.o"
 arm-none-eabi-gcc "../Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.d" -MT"Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L0xx_HAL_Driver/Src/stm32l0xx_hal_uart_ex.o"
-arm-none-eabi-gcc -mcpu=cortex-m0plus -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32l073rztx.d" -MT"Core/Startup/startup_stm32l073rztx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Startup/startup_stm32l073rztx.o" "../Core/Startup/startup_stm32l073rztx.s"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc "../Core/Src/stm32l0xx_hal_msp.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l0xx_hal_msp.d" -MT"Core/Src/stm32l0xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l0xx_hal_msp.o"
 arm-none-eabi-gcc "../Core/Src/stm32l0xx_it.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l0xx_it.d" -MT"Core/Src/stm32l0xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l0xx_it.o"
-arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/syscalls.o"
-arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/sysmem.o"
 arm-none-eabi-gcc "../Core/Src/system_stm32l0xx.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/system_stm32l0xx.d" -MT"Core/Src/system_stm32l0xx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/system_stm32l0xx.o"
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10168	     20	   1836	  12024	   2ef8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
-20:07:06 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:58:1: error: unknown type name 'states'; use 'enum' keyword to refer to the type
+   58 | states state = idle;
+      | ^~~~~~
+      | enum 
+../Core/Src/main.c:61:21: error: expected ':', ',', ';', '}' or '__attribute__' before '=' token
+   61 |     uint16_t length = 0;
+      |                     ^
+../Core/Src/main.c:67:1: warning: useless storage class specifier in empty declaration
+   67 | };
+      | ^
+../Core/Src/main.c:69:1: error: unknown type name 'frame'; use 'struct' keyword to refer to the type
+   69 | frame recieved_frame;
+      | ^~~~~
+      | struct 
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:105:21: warning: initialization of 'char *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                     ^~~~
-../Core/Src/main.c:105:21: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:27: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                           ^~~~
-../Core/Src/main.c:105:27: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:33: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                 ^~~~
-../Core/Src/main.c:105:33: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:39: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                       ^~~~
-../Core/Src/main.c:105:39: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:45: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                             ^~~~
-../Core/Src/main.c:105:45: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:51: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                   ^~~~
-../Core/Src/main.c:105:51: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:57: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                         ^~~~
-../Core/Src/main.c:105:57: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:63: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                               ^~~~
-../Core/Src/main.c:105:63: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:69: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                     ^~~~
-../Core/Src/main.c:105:69: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:75: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                           ^~~~
-../Core/Src/main.c:105:75: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:81: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                 ^~~~
-../Core/Src/main.c:105:81: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:87: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                       ^~~~
-../Core/Src/main.c:105:87: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:93: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                             ^~~~
-../Core/Src/main.c:105:93: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:99: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                   ^~~~
-../Core/Src/main.c:105:99: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:105: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                         ^~~~
-../Core/Src/main.c:105:105: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:111: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                               ^~~~
-../Core/Src/main.c:105:111: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:117: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                     ^~~~
-../Core/Src/main.c:105:117: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:123: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                           ^~~~
-../Core/Src/main.c:105:123: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:129: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                                 ^~~~
-../Core/Src/main.c:105:129: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:135: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                                       ^~~~
-../Core/Src/main.c:105:135: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:141: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                                             ^~~~
-../Core/Src/main.c:105:141: note: (near initialization for 'buffer')
-../Core/Src/main.c:105:147: warning: excess elements in scalar initializer
-  105 |     char* buffer = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
-      |                                                                                                                                                   ^~~~
-../Core/Src/main.c:105:147: note: (near initialization for 'buffer')
-../Core/Src/main.c:106:45: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  106 |     if(HAL_OK != HAL_UART_Transmit(&huart1, buffer, 22, 100)) Error_Handler();
-      |                                             ^~~~~~
-      |                                             |
-      |                                             char *
+../Core/Src/main.c:119:33: error: 'UART1_rxBuffer' undeclared (first use in this function)
+  119 |   HAL_UART_Receive_IT (&huart1, UART1_rxBuffer, 12);
+      |                                 ^~~~~~~~~~~~~~
+../Core/Src/main.c:119:33: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:138:24: error: request for member 'length' in something not a structure or union
+  138 |       if(recieved_frame.length==0) recieved_frame.length = (uint16_t(xbee_rx_buffer[xbee_rx_read_index])) <<8;
+      |                        ^
+../Core/Src/main.c:138:50: error: request for member 'length' in something not a structure or union
+  138 |       if(recieved_frame.length==0) recieved_frame.length = (uint16_t(xbee_rx_buffer[xbee_rx_read_index])) <<8;
+      |                                                  ^
+../Core/Src/main.c:138:70: error: expected ')' before 'xbee_rx_buffer'
+  138 |       if(recieved_frame.length==0) recieved_frame.length = (uint16_t(xbee_rx_buffer[xbee_rx_read_index])) <<8;
+      |                                                                      ^~~~~~~~~~~~~~
+      |                                                                      )
+../Core/Src/main.c:140:22: error: request for member 'length' in something not a structure or union
+  140 |        recieved_frame.length += xbee_rx_buffer[xbee_rx_read_index];
+      |                      ^
+../Core/Src/main.c:146:21: error: request for member 'type' in something not a structure or union
+  146 |       recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
+      |                     ^
+../Core/Src/main.c:151:24: error: request for member 'content_index' in something not a structure or union
+  151 |       if(recieved_frame.content_index < recieved_frame.length){
+      |                        ^
+../Core/Src/main.c:151:55: error: request for member 'length' in something not a structure or union
+  151 |       if(recieved_frame.content_index < recieved_frame.length){
+      |                                                       ^
+../Core/Src/main.c:152:22: error: request for member 'content' in something not a structure or union
+  152 |        recieved_frame.content[recieved_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+      |                      ^
+../Core/Src/main.c:152:45: error: request for member 'content_index' in something not a structure or union
+  152 |        recieved_frame.content[recieved_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+      |                                             ^
+../Core/Src/main.c:153:22: error: request for member 'content_index' in something not a structure or union
+  153 |        recieved_frame.content_index++;
+      |                      ^
+../Core/Src/main.c:159:7: error: a label can only be part of a statement and a declaration is not a statement
+  159 |       uint32_t sum = 0;
+      |       ^~~~~~~~
+../Core/Src/main.c:160:21: error: request for member 'check_sum' in something not a structure or union
+  160 |       recieved_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
+      |                     ^
+../Core/Src/main.c:161:41: error: request for member 'length' in something not a structure or union
+  161 |       for(uint16_t i=0; i<recieved_frame.length; i++) sum += recieved_frame.content[i];
+      |                                         ^
+../Core/Src/main.c:161:76: error: request for member 'content' in something not a structure or union
+  161 |       for(uint16_t i=0; i<recieved_frame.length; i++) sum += recieved_frame.content[i];
+      |                                                                            ^
+../Core/Src/main.c:162:28: error: request for member 'type' in something not a structure or union
+  162 |       sum += recieved_frame.type + recieved_frame.check_sum;
+      |                            ^
+../Core/Src/main.c:162:50: error: request for member 'check_sum' in something not a structure or union
+  162 |       sum += recieved_frame.type + recieved_frame.check_sum;
+      |                                                  ^
+../Core/Src/main.c:163:21: error: request for member 'check_sum_ok' in something not a structure or union
+  163 |       recieved_frame.check_sum_ok = ((sum & 0b11110000)>>4) == (sum & 0b00001111);
+      |                     ^
+../Core/Src/main.c: In function 'HAL_UART_RxCpltCallback':
+../Core/Src/main.c:331:22: warning: passing argument 1 of 'HAL_UART_Receive_IT' from incompatible pointer type [-Wincompatible-pointer-types]
+  331 |  HAL_UART_Receive_IT(&huart, xbee_rx_buffer, 1);
+      |                      ^~~~~~
+      |                      |
+      |                      UART_HandleTypeDef ** {aka struct __UART_HandleTypeDef **}
 In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
                  from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
                  from ../Core/Inc/main.h:31,
                  from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10616	     20	   1836	  12472	   30b8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
-20:07:44 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:106:45: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  106 |     if(HAL_OK != HAL_UART_Transmit(&huart1, buffer, 22, 100)) Error_Handler();
-      |                                             ^~~~~~
-      |                                             |
-      |                                             char *
-In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
-                 from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10656	     20	   1836	  12512	   30e0	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
-20:08:57 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:106:32: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  106 |     HAL_UART_Transmit(&huart1, buffer, 22, 100);
-      |                                ^~~~~~
-      |                                |
-      |                                char *
-In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
-                 from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10648	     20	   1836	  12504	   30d8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
-20:10:30 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10648	     20	   1836	  12504	   30d8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
-20:23:39 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-   text	   data	    bss	    dec	    hex	filename
-  10648	     20	   1836	  12504	   30d8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-20:25:24 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
-arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
-   text	   data	    bss	    dec	    hex	filename
-  10664	     20	   1836	  12520	   30e8	SysBee_Test_Nucleo.elf
-Finished building: default.size.stdout
- 
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
+../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1491:59: note: expected 'UART_HandleTypeDef *' {aka 'struct __UART_HandleTypeDef *'} but argument is of type 'UART_HandleTypeDef **' {aka 'struct __UART_HandleTypeDef **'}
+ 1491 | HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+      |                                       ~~~~~~~~~~~~~~~~~~~~^~~~~
+../Core/Src/main.c:333:17: error: 'xbee_rx_buffer_read_index' undeclared (first use in this function); did you mean 'xbee_rx_read_index'?
+  333 |  xbee_rx_buffer[xbee_rx_buffer_read_index] = c[0];
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                 xbee_rx_read_index
+../Core/Src/main.c:334:2: error: 'xbee_rx_buffer_write_index' undeclared (first use in this function); did you mean 'xbee_rx_write_index'?
+  334 |  xbee_rx_buffer_write_index++;
+      |  ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |  xbee_rx_write_index
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
