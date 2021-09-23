@@ -45,12 +45,13 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
+uint8_t lora_status;
 
-uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x2D, 0x90, 0x00, 0x13, 0xA2, 0x00, 0x41, 0x7D, 0x01, 0x20, 0x00, 0x00, 0x02, 0x54, 0x45, 0x53, 0x54, 0x20, 0x74, 0x72, 0x75, 0x63, 0x6D, 0x75, 0x63, 0x68, 0x65, 0x20, 0x6A, 0x27, 0x65, 0x6E, 0x76, 0x6F, 0x69, 0x65, 0x20, 0x64, 0x65, 0x73, 0x20, 0x74, 0x72, 0x75, 0x63, 0x73, 0xC5};
+uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x1D, 0x90, 0x00, 0x13, 0xA2, 0x00, 0x41, 0x7D, 0x01, 0x20, 0x00, 0x00, 0x02, 0x54, 0x45, 0x53, 0x54, 0x20, 0x54, 0x45, 0x53, 0x55, 0x20, 0x52, 0x41, 0x4F, 0x55, 0x4C, 0x0D, 0x0A, 0x7F};
 uint8_t xbee_rx_read_index = 0;
-uint8_t xbee_rx_write_index = 25;
+uint8_t xbee_rx_write_index = 50;
 
-uint8_t test_string[100] = {0x7E, 0x00, 0x12, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFE, 0x00, 0x00, 0x54, 0x45, 0x53, 0x54, 0xB3};
+uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xEE, 0xBA, 0xBA, 0x0D };
 
 enum states {idle, frame_length, frame_type, frame_address64, frame_address16, frame_option, frame_content, check_sum, process_content} state;
 
@@ -76,6 +77,8 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
+
+void check_coordinator();
 
 /* USER CODE END PFP */
 
@@ -129,9 +132,14 @@ int main(void)
 	  if(xbee_rx_read_index<xbee_rx_write_index){
 		  uint64_t sum = 0;
 		  static uint8_t multiple_byte_step;
+
 		  switch (state){
 			  case idle:
 				  if(xbee_rx_buffer[xbee_rx_read_index] == 0x7E) state = frame_length;
+				  /*else if (lora_requested && xbee_rx_buffer[xbee_rx_read_index] == 0xAA){
+					  is_coordinator = True;
+					  lora_requested = False;
+				  }*/
 			  break;
 
 			  case frame_length:
@@ -185,11 +193,11 @@ int main(void)
 
 			  case check_sum:
 				  recieved_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
-				  for(uint8_t i=0; i<8; i++) sum+= (((uint64_t)0xFF<<(56-8*i)) & recieved_frame.address64)>>(56-8*i);
-				  for(uint8_t i=0; i<2; i++) sum+= (((uint16_t)0xFF<<(8-8*i)) & recieved_frame.address16)>>(8-i*8);
+				  for(uint8_t i=0; i<8; i++) sum += (((uint64_t)0xFF<<(56-8*i)) & recieved_frame.address64)>>(56-8*i);
+				  for(uint8_t i=0; i<2; i++) sum += (((uint16_t)0xFF<<(8-8*i)) & recieved_frame.address16)>>(8-i*8);
 				  for(uint16_t i=0; i<recieved_frame.length-12; i++) sum += recieved_frame.content[i];
 				  sum += recieved_frame.type + recieved_frame.option + recieved_frame.check_sum;
-				  recieved_frame.check_sum_ok = ((sum & 0xF0)>>4) == (sum & 0x0F);
+				  recieved_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
 				  state = idle;
 			  break;
 
@@ -357,6 +365,10 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void check_coordinator(){
+
+}
 
 /* USER CODE END 4 */
 
