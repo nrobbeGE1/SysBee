@@ -37,6 +37,12 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+#define transmit_request 0x10
+#define receive_packet 0x90
+#define remote_command_response 0x97
+#define remote_AT_command_request 0x17
+
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -47,27 +53,29 @@ UART_HandleTypeDef huart2;
 
 uint8_t lora_status;
 
-uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x1D, 0x90, 0x00, 0x13, 0xA2, 0x00, 0x41, 0x7D, 0x01, 0x20, 0x00, 0x00, 0x02, 0x54, 0x45, 0x53, 0x54, 0x20, 0x54, 0x45, 0x53, 0x55, 0x20, 0x52, 0x41, 0x4F, 0x55, 0x4C, 0x0D, 0x0A, 0x7F};
+uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x16, 0x97, 0x01, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xFF, 0xFE, 0x41, 0x41, 0x00, 0x42, 0x42, 0x20, 0x54, 0x45, 0x53, 0x54, 0x8C};
 uint8_t xbee_rx_read_index = 0;
-uint8_t xbee_rx_write_index = 50;
+uint8_t xbee_rx_write_index = 100;
 
 uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xEE, 0xBA, 0xBA, 0x0D };
 
-enum states {idle, frame_length, frame_type, frame_address64, frame_address16, frame_option, frame_content, check_sum, process_content} state;
+enum states {idle, frame_length, frame_type, frame_id, frame_address64, frame_address16, frame_option, frame_at_status, frame_content, check_sum, process_content} state;
 
 struct frame{
     uint16_t length;
     uint8_t type;
+    uint8_t id; //AT
     uint64_t address64;
     uint16_t address16;
     uint8_t option;
     uint8_t content[256];
     uint8_t content_index;
+    uint8_t command_status[4]; //AT
     uint8_t check_sum;
     uint8_t check_sum_ok;
 };
 
-struct frame recieved_frame;
+struct frame received_frame;
 
 /* USER CODE END PV */
 
@@ -143,7 +151,7 @@ int main(void)
 			  break;
 
 			  case frame_length:
-				  recieved_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
+				  received_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
 				  if(multiple_byte_step){
 					  multiple_byte_step = 0;
 					  state = frame_type;
@@ -154,13 +162,25 @@ int main(void)
 			  break;
 
 			  case frame_type:
-				  recieved_frame.type = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_address64;
+				  received_frame.type = xbee_rx_buffer[xbee_rx_read_index];
+				  switch(received_frame.type){
+				  	  case receive_packet: state = frame_address64; break;
+				  	  case remote_command_response: state = frame_id; break;
+				  	  default: xbee_rx_read_index = xbee_rx_write_index;
+				  	  	  	   state = idle;
+				  	  break;
+				  }
+
 				  multiple_byte_step = 0;
 			  break;
 
+			  case frame_id:
+				  received_frame.id = xbee_rx_buffer[xbee_rx_read_index];
+				  state = frame_address64;
+			  break;
+
 			  case frame_address64:
-				  recieved_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
+				  received_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
 
 				  if(multiple_byte_step == 7){
 					  state = frame_address16;
@@ -170,34 +190,54 @@ int main(void)
 			  break;
 
 			  case frame_address16:
-				  recieved_frame.type += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
+				  received_frame.address16 += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
 				  if(multiple_byte_step == 1){
-					  state = frame_option;
+					  switch(received_frame.type){
+					  	  case receive_packet: state = frame_option; break;
+					  	  case remote_command_response: state = frame_at_status; break;
+					  	  default: xbee_rx_read_index = xbee_rx_write_index;
+							       state = idle;
+						  break;
+					  }
+
 					  multiple_byte_step = 0;
 				  }
 				  else multiple_byte_step++;
 			  break;
 
 			  case frame_option:
-				  recieved_frame.option = xbee_rx_buffer[xbee_rx_read_index];
+				  received_frame.option = xbee_rx_buffer[xbee_rx_read_index];
 				  state = frame_content;
 			  break;
 
+			  case frame_at_status:
+				  received_frame.command_status[multiple_byte_step] = xbee_rx_buffer[xbee_rx_read_index];
+				  if(multiple_byte_step == 2){
+					  multiple_byte_step = 0;
+					  state = frame_content;
+				  }
+				  else multiple_byte_step++;
+			  break;
+
 			  case frame_content:
-				  recieved_frame.content[recieved_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
-				  if(recieved_frame.content_index == recieved_frame.length-13)
+				  received_frame.content[received_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+				  if(((received_frame.content_index == received_frame.length-13) && received_frame.type==receive_packet) || ((received_frame.content_index == received_frame.length-16) && (received_frame.type==remote_command_response)))
 					  state = check_sum;
 				  else
-					  recieved_frame.content_index++;
+					  received_frame.content_index++;
 			  break;
 
 			  case check_sum:
-				  recieved_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
-				  for(uint8_t i=0; i<8; i++) sum += (((uint64_t)0xFF<<(56-8*i)) & recieved_frame.address64)>>(56-8*i);
-				  for(uint8_t i=0; i<2; i++) sum += (((uint16_t)0xFF<<(8-8*i)) & recieved_frame.address16)>>(8-i*8);
-				  for(uint16_t i=0; i<recieved_frame.length-12; i++) sum += recieved_frame.content[i];
-				  sum += recieved_frame.type + recieved_frame.option + recieved_frame.check_sum;
-				  recieved_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
+				  received_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
+				  for(uint8_t i=0; i<8; i++) sum += (((uint64_t)0xFF<<(56-8*i)) & received_frame.address64)>>(56-8*i);
+				  for(uint8_t i=0; i<2; i++) sum += (((uint16_t)0xFF<<(8-8*i)) & received_frame.address16)>>(8-i*8);
+				  if(received_frame.id==receive_packet) for(uint16_t i=0; i<received_frame.length-12; i++) sum += received_frame.content[i];
+				  else if(received_frame.type==remote_command_response){
+					  for(uint16_t i=0; i<received_frame.length-15; i++) sum += received_frame.content[i];
+					  for(uint8_t i=0; i<4; i++) sum += received_frame.command_status[i];
+				  }
+				  sum += received_frame.type + received_frame.option + received_frame.id + received_frame.check_sum;
+				  received_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
 				  state = idle;
 			  break;
 

@@ -1,9 +1,9 @@
-11:20:31 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+17:11:01 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
 make -j8 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:205:7: warning: statement with no effect [-Wunused-value]
-  205 |       0;
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
       |       ^
 arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: SysBee_Test_Nucleo.elf
@@ -12,7 +12,7 @@ arm-none-eabi-size   SysBee_Test_Nucleo.elf
 arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
 arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
    text	   data	    bss	    dec	    hex	filename
-  11212	    280	   2128	  13620	   3534	SysBee_Test_Nucleo.elf
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
 Finished building: default.size.stdout
  
 Finished building: SysBee_Test_Nucleo.bin
@@ -20,5 +20,5 @@ Finished building: SysBee_Test_Nucleo.bin
 Finished building: SysBee_Test_Nucleo.list
  
 
-11:20:31 Build Finished. 0 errors, 1 warnings. (took 762ms)
+17:11:02 Build Finished. 0 errors, 1 warnings. (took 761ms)
 

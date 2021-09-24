@@ -948,3 +948,329 @@ Finished building: SysBee_Test_Nucleo.bin
  
 Finished building: SysBee_Test_Nucleo.list
  
+15:34:01 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:223:70: error: 'recieved_frame' undeclared (first use in this function); did you mean 'received_frame'?
+  223 |       if(received_frame.content_index == received_frame.length-13 && recieved_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && recieved_frame.type==remote_AT_command_response)
+      |                                                                      ^~~~~~~~~~~~~~
+      |                                                                      received_frame
+../Core/Src/main.c:223:70: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:223:190: error: 'remote_AT_command_response' undeclared (first use in this function); did you mean 'remote_command_response'?
+  223 |       if(received_frame.content_index == received_frame.length-13 && recieved_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && recieved_frame.type==remote_AT_command_response)
+      |                                                                                                                                                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                                                                                                                              remote_command_response
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+15:34:38 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:223:169: error: 'recieved_frame' undeclared (first use in this function); did you mean 'received_frame'?
+  223 |       if(received_frame.content_index == received_frame.length-13 && received_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && recieved_frame.type==remote_AT_command_response)
+      |                                                                                                                                                                         ^~~~~~~~~~~~~~
+      |                                                                                                                                                                         received_frame
+../Core/Src/main.c:223:169: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:223:190: error: 'remote_AT_command_response' undeclared (first use in this function); did you mean 'remote_command_response'?
+  223 |       if(received_frame.content_index == received_frame.length-13 && received_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && recieved_frame.type==remote_AT_command_response)
+      |                                                                                                                                                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                                                                                                                              remote_command_response
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+15:35:42 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:223:190: error: 'remote_AT_command_response' undeclared (first use in this function); did you mean 'remote_command_response'?
+  223 |       if(received_frame.content_index == received_frame.length-13 && received_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && received_frame.type==remote_AT_command_response)
+      |                                                                                                                                                                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                                                                                                                                                              remote_command_response
+../Core/Src/main.c:223:190: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+15:36:26 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:223:67: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+  223 |       if(received_frame.content_index == received_frame.length-13 && received_frame.type==receive_packet || received_frame.content_index == received_frame.length-16 && received_frame.type==remote_command_response)
+      |                                                                   ^
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+15:37:46 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+15:38:32 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+15:57:24 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+15:59:52 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+16:01:05 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:03:42 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:04:04 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:04:36 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:49:47 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:51:38 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+16:56:04 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+16:57:35 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:244:7: warning: statement with no effect [-Wunused-value]
+  244 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11576	    280	   2136	  13992	   36a8	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+16:58:51 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+17:00:01 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+17:05:18 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+17:07:49 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+17:10:29 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
+17:11:01 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:245:7: warning: statement with no effect [-Wunused-value]
+  245 |       0;
+      |       ^
+arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: SysBee_Test_Nucleo.elf
+ 
+arm-none-eabi-size   SysBee_Test_Nucleo.elf 
+arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
+arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
+   text	   data	    bss	    dec	    hex	filename
+  11584	    280	   2136	  14000	   36b0	SysBee_Test_Nucleo.elf
+Finished building: default.size.stdout
+ 
+Finished building: SysBee_Test_Nucleo.bin
+ 
+Finished building: SysBee_Test_Nucleo.list
+ 
