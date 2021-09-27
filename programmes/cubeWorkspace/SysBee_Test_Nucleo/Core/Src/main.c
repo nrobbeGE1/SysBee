@@ -42,6 +42,8 @@
 #define remote_command_response 0x97
 #define remote_AT_command_request 0x17
 
+#define timeout_duration 200
+
 
 /* USER CODE END PM */
 
@@ -52,14 +54,50 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 
 uint8_t lora_status;
-
-uint8_t xbee_rx_buffer[256] = {0x7E, 0x00, 0x16, 0x97, 0x01, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xAF, 0xFF, 0xFE, 0x41, 0x41, 0x00, 0x42, 0x42, 0x20, 0x54, 0x45, 0x53, 0x54, 0x8C};
+uint8_t xbee_rx_last_byte;
+uint8_t xbee_rx_buffer[256];
 uint8_t xbee_rx_read_index = 0;
-uint8_t xbee_rx_write_index = 100;
+uint8_t xbee_rx_write_index = 0;
 
 uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xEE, 0xBA, 0xBA, 0x0D };
 
-enum states {idle, frame_length, frame_type, frame_id, frame_address64, frame_address16, frame_option, frame_at_status, frame_content, check_sum, process_content} state;
+uint8_t config[20][2][10] = {
+	{"ID", "1111"}, // network id
+	{"NI", "CAMARCHE"}, // node id
+	{"CE", "0"},	// coordinator mode
+	{"AP", "1"},  	// API enable
+	{"SP", "20"},	// cyclic sleep period
+	{"SN", "100"},  // number of sleep periods
+	{"SM", "0"},	// sleep mode
+	{"ST", "500"}   // time before sleep
+};
+uint8_t config_step;
+
+uint8_t config_length = 4;
+
+enum xbee_send_states {
+	enter_command_mode,
+	command_mode_ok,
+	send_config,
+	config_ok,
+	single_command,
+	single_command_ok,
+	config_over
+} xbee_send_state;
+
+enum xbee_receive_states {
+	idle,
+	frame_length,
+	frame_type,
+	frame_id,
+	frame_address64,
+	frame_address16,
+	frame_option,
+	frame_at_status,
+	frame_content,
+	check_sum,
+	process_content
+} xbee_receive_state;
 
 struct frame{
     uint16_t length;
@@ -75,6 +113,8 @@ struct frame{
     uint8_t check_sum_ok;
 };
 
+//AT COMMANDS https://cdn.sparkfun.com/assets/resources/2/9/22AT_Commands.pdf
+
 struct frame received_frame;
 
 /* USER CODE END PV */
@@ -86,6 +126,7 @@ static void MX_USART2_UART_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 void check_coordinator();
 
 /* USER CODE END PFP */
@@ -127,6 +168,83 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  HAL_UART_Receive_IT(&huart1, &xbee_rx_last_byte, 1);
+
+  while(xbee_send_state != config_over){
+	  static uint16_t timeout;
+	  char string[50] = {0};
+	  switch(xbee_send_state){
+
+		  case enter_command_mode:
+			  HAL_UART_Transmit(&huart1, "+++", 3, 100);
+			  timeout = 0;
+			  xbee_send_state = command_mode_ok;
+		  break;
+
+		  case command_mode_ok:
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+				  xbee_send_state = single_command;
+			  	  timeout = 0;
+			  }
+			  else {
+				  HAL_Delay(1);
+				  timeout++;
+				  if (timeout >= timeout_duration)
+					  xbee_send_state = enter_command_mode;
+			  }
+		  break;
+
+		  case single_command:
+			  HAL_UART_Transmit(&huart1, "ATRE\r", 5, 100);
+			  timeout = 0;
+			  xbee_send_state = single_command_ok;
+		  break;
+
+		  case single_command_ok:
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+				  xbee_send_state = send_config;
+				  timeout = 0;
+			  }
+			  else {
+				  HAL_Delay(1);
+				  timeout++;
+				  if (timeout >= timeout_duration)
+					  xbee_send_state = enter_command_mode;
+			  }
+		  break;
+
+		  case send_config:
+			  if(config_step == config_length){
+				  sprintf(string, "ATWR\r");
+			  }
+			  else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]);
+			  if(config_step==config_length){
+				  config_step = 4;
+			  }
+			  HAL_UART_Transmit(&huart1, string, strlen(string), 100);
+			  xbee_send_state = config_ok;
+		  break;
+
+		  case config_ok:
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+				  if(config_step == config_length)
+					  xbee_send_state = config_over;
+				  timeout = 0;
+				  config_step++;
+				  xbee_send_state = send_config;
+			  }
+			  else {
+				  HAL_Delay(1);
+				  timeout++;
+				  if (timeout >= timeout_duration)
+					  xbee_send_state = enter_command_mode;
+			  }
+		  break;
+
+		  default: break;
+	  }
+  }
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -137,13 +255,14 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
+
 	  if(xbee_rx_read_index<xbee_rx_write_index){
 		  uint64_t sum = 0;
 		  static uint8_t multiple_byte_step;
 
-		  switch (state){
+		  switch (xbee_receive_state){
 			  case idle:
-				  if(xbee_rx_buffer[xbee_rx_read_index] == 0x7E) state = frame_length;
+				  if(xbee_rx_buffer[xbee_rx_read_index] == 0x7E) xbee_receive_state = frame_length;
 				  /*else if (lora_requested && xbee_rx_buffer[xbee_rx_read_index] == 0xAA){
 					  is_coordinator = True;
 					  lora_requested = False;
@@ -154,7 +273,7 @@ int main(void)
 				  received_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
 				  if(multiple_byte_step){
 					  multiple_byte_step = 0;
-					  state = frame_type;
+					  xbee_receive_state = frame_type;
 				  }
 				  else{
 					  multiple_byte_step++;
@@ -164,10 +283,10 @@ int main(void)
 			  case frame_type:
 				  received_frame.type = xbee_rx_buffer[xbee_rx_read_index];
 				  switch(received_frame.type){
-				  	  case receive_packet: state = frame_address64; break;
-				  	  case remote_command_response: state = frame_id; break;
+				  	  case receive_packet: xbee_receive_state = frame_address64; break;
+				  	  case remote_command_response: xbee_receive_state = frame_id; break;
 				  	  default: xbee_rx_read_index = xbee_rx_write_index;
-				  	  	  	   state = idle;
+				  	  	  	   xbee_receive_state = idle;
 				  	  break;
 				  }
 
@@ -176,14 +295,14 @@ int main(void)
 
 			  case frame_id:
 				  received_frame.id = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_address64;
+				  xbee_receive_state = frame_address64;
 			  break;
 
 			  case frame_address64:
 				  received_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
 
 				  if(multiple_byte_step == 7){
-					  state = frame_address16;
+					  xbee_receive_state = frame_address16;
 					  multiple_byte_step = 0;
 				  }
 				  else multiple_byte_step++;
@@ -193,10 +312,10 @@ int main(void)
 				  received_frame.address16 += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
 				  if(multiple_byte_step == 1){
 					  switch(received_frame.type){
-					  	  case receive_packet: state = frame_option; break;
-					  	  case remote_command_response: state = frame_at_status; break;
+					  	  case receive_packet: xbee_receive_state = frame_option; break;
+					  	  case remote_command_response: xbee_receive_state = frame_at_status; break;
 					  	  default: xbee_rx_read_index = xbee_rx_write_index;
-							       state = idle;
+							       xbee_receive_state = idle;
 						  break;
 					  }
 
@@ -207,14 +326,14 @@ int main(void)
 
 			  case frame_option:
 				  received_frame.option = xbee_rx_buffer[xbee_rx_read_index];
-				  state = frame_content;
+				  xbee_receive_state = frame_content;
 			  break;
 
 			  case frame_at_status:
 				  received_frame.command_status[multiple_byte_step] = xbee_rx_buffer[xbee_rx_read_index];
 				  if(multiple_byte_step == 2){
 					  multiple_byte_step = 0;
-					  state = frame_content;
+					  xbee_receive_state = frame_content;
 				  }
 				  else multiple_byte_step++;
 			  break;
@@ -222,7 +341,7 @@ int main(void)
 			  case frame_content:
 				  received_frame.content[received_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
 				  if(((received_frame.content_index == received_frame.length-13) && received_frame.type==receive_packet) || ((received_frame.content_index == received_frame.length-16) && (received_frame.type==remote_command_response)))
-					  state = check_sum;
+					  xbee_receive_state = check_sum;
 				  else
 					  received_frame.content_index++;
 			  break;
@@ -238,7 +357,7 @@ int main(void)
 				  }
 				  sum += received_frame.type + received_frame.option + received_frame.id + received_frame.check_sum;
 				  received_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
-				  state = idle;
+				  xbee_receive_state = idle;
 			  break;
 
 			  case process_content:
@@ -405,6 +524,16 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart->Instance == USART1){
+	    xbee_rx_buffer[xbee_rx_write_index] = xbee_rx_last_byte;
+	    xbee_rx_write_index++;
+	    HAL_UART_Receive_IT(&huart1, &xbee_rx_last_byte, 1);
+	}
+
+}
 
 void check_coordinator(){
 
