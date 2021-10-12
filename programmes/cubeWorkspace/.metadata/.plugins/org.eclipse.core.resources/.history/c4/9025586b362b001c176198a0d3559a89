@@ -46,7 +46,7 @@
 #define remote_command_response 0x97
 #define remote_AT_command_request 0x17
 
-#define timeout_duration 500 // x 2ms
+#define timeout_duration 10 // x 2ms
 
 #define LED_R GPIO_PIN_2
 #define LED_V GPIO_PIN_10
@@ -106,7 +106,7 @@ uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x0
 
 uint8_t config[20][2][10] = {
 	{"ID", "1111"}, // network id
-	{"NI", "demo1234"}, // node id
+	{"NI", "demoABC"}, // node id
 	{"CE", "0"},	// coordinator mode
 	{"ID", "1111"}, // network id
 	{"AP", "1"},  	// API enable
@@ -243,7 +243,7 @@ int main(void)
 
 		  case command_mode_ok:
 			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
+				  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
 					  xbee_send_state = single_command;
 					  HAL_Delay(10);
 					  timeout = 0;
@@ -268,13 +268,10 @@ int main(void)
 		  break;
 
 		  case single_command_ok:
-			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
-					  xbee_send_state = send_config;
-					  HAL_Delay(10);
-					  timeout = 0;
-				  }
-				  cr_flag = 0;
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+				  xbee_send_state = send_config;
+				  HAL_Delay(10);
+				  timeout = 0;
 			  }
 			  else {
 				  HAL_Delay(1);
@@ -297,24 +294,18 @@ int main(void)
 		  break;
 
 		  case config_ok:
-			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
-					  if(config_step == config_length){
-						  HAL_GPIO_WritePin(GPIOB, LED_R, GPIO_PIN_RESET);
-						  HAL_GPIO_WritePin(GPIOB, LED_V, GPIO_PIN_SET);
-						  xbee_send_state = config_over;
-					  }
-					  else {
-						  timeout = 0;
-						  config_step++;
-						  xbee_send_state = send_config;
-						  HAL_Delay(10);
-					  }
-				  }
-				  cr_flag = 0;
-			  }
 			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
-
+				  if(config_step == config_length){
+					  HAL_GPIO_WritePin(GPIOB, LED_R, GPIO_PIN_RESET);
+					  HAL_GPIO_WritePin(GPIOB, LED_V, GPIO_PIN_SET);
+					  xbee_send_state = config_over;
+				  }
+				  else {
+					  timeout = 0;
+					  config_step++;
+					  xbee_send_state = send_config;
+					  HAL_Delay(10);
+				  }
 			  }
 			  else {
 				  HAL_Delay(1);
@@ -606,10 +597,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if (huart->Instance == USART5){
 	    xbee_rx_buffer[xbee_rx_write_index] = xbee_rx_last_byte;
-	    cr_flag = (xbee_rx_last_byte == 0x0D)? xbee_rx_write_index : 0;
 	    xbee_rx_write_index++;
 	    HAL_UART_Receive_IT(&huart5, &xbee_rx_last_byte, 1);
-
+	    cr_flag = (xbee_rx_last_byte == 0x0D)? xbee_rx_write_index : 0;
 	}
 
 }

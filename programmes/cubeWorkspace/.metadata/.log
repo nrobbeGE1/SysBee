@@ -8579,3 +8579,95 @@ Reason: (4) No device found on target.
 
 !ENTRY unknown 8 1 2021-10-12 10:06:57.020
 !MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:20:45.967
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:21:23.967
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:22:29.584
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:22:43.687
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:25:04.000
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:27:05.386
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:27:39.881
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:28:00.977
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:28:46.218
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:29:44.546
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:31:32.147
+!MESSAGE 
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2021-10-12 10:34:52.811
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+-exec-continue
+
+Error message from debugger back end:
+Cannot execute this command while the selected thread is running.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+-exec-continue
+
+Error message from debugger back end:
+Cannot execute this command while the selected thread is running.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:251)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:108)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:96)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:307)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:803)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.lang.Exception: Cannot execute this command while the selected thread is running.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1014)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:843)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2021-10-12 10:34:52.811
+!MESSAGE Failed to execute MI command:
+-exec-continue
+
+Error message from debugger back end:
+Cannot execute this command while the selected thread is running.
+!STACK 0
+java.lang.Exception: Cannot execute this command while the selected thread is running.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1014)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:843)
+
+!ENTRY unknown 8 1 2021-10-12 10:35:42.209
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:36:01.856
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:37:35.313
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:39:43.851
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:40:11.203
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:40:13.979
+!MESSAGE 
+
+!ENTRY unknown 8 1 2021-10-12 10:43:48.628
+!MESSAGE 
