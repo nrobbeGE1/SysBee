@@ -1,0 +1,13 @@
+main.c:194:5:main	72	static
+main.c:362:6:SystemClock_Config	136	static
+main.c:411:13:MX_USART2_UART_Init	8	static
+main.c:446:13:MX_USART5_UART_Init	8	static
+main.c:481:13:MX_GPIO_Init	56	static
+main.c:541:6:select_mux	16	static
+main.c:548:6:scan_sensors	16	static
+main.c:592:6:HAL_UART_RxCpltCallback	16	static
+main.c:602:6:check_coordinator	8	static
+main.c:606:6:invert_lsB_msB	72	static
+main.c:616:6:xbee_send_string	336	static
+main.c:651:6:xbee_send_alert	40	static
+main.c:664:6:Error_Handler	8	static,ignoring_inline_asm

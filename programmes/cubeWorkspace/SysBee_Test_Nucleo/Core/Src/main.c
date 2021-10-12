@@ -1,4 +1,7 @@
 /* USER CODE BEGIN Header */
+
+//PGM TEST DEV BOARD
+
 /**
   ******************************************************************************
   * @file           : main.c
@@ -63,7 +66,7 @@ uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x0
 
 uint8_t config[20][2][10] = {
 	{"ID", "1111"}, // network id
-	{"NI", "CAMARCHE"}, // node id
+	{"NI", "DEMOABC"}, // node id
 	{"CE", "0"},	// coordinator mode
 	{"AP", "1"},  	// API enable
 	{"SP", "20"},	// cyclic sleep period

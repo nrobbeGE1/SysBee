@@ -1,80 +1,10 @@
-19:50:23 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m0plus -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L073xx -c -I../Core/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc -I../Drivers/STM32L0xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L0xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'main':
-../Core/Src/main.c:179:33: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  179 |      HAL_UART_Transmit(&huart1, "+++", 3, 100);
-      |                                 ^~~~~
-      |                                 |
-      |                                 char *
-In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
-                 from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-../Core/Src/main.c:198:33: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  198 |      HAL_UART_Transmit(&huart1, "ATRE\r", 5, 100);
-      |                                 ^~~~~~~~
-      |                                 |
-      |                                 char *
-In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
-                 from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-../Core/Src/main.c:218:7: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
-  218 |       sprintf(string, "ATWR\r");
-      |       ^~~~~~~
-../Core/Src/main.c:218:7: warning: incompatible implicit declaration of built-in function 'sprintf'
-../Core/Src/main.c:22:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-   21 | #include "main.h"
-  +++ |+#include <stdio.h>
-   22 | 
-../Core/Src/main.c:220:11: warning: incompatible implicit declaration of built-in function 'sprintf'
-  220 |      else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]);
-      |           ^~~~~~~
-../Core/Src/main.c:220:11: note: include '<stdio.h>' or provide a declaration of 'sprintf'
-../Core/Src/main.c:224:41: warning: implicit declaration of function 'strlen' [-Wimplicit-function-declaration]
-  224 |      HAL_UART_Transmit(&huart1, string, strlen(string), 100);
-      |                                         ^~~~~~
-../Core/Src/main.c:224:41: warning: incompatible implicit declaration of built-in function 'strlen'
-../Core/Src/main.c:22:1: note: include '<string.h>' or provide a declaration of 'strlen'
-   21 | #include "main.h"
-  +++ |+#include <string.h>
-   22 | 
-../Core/Src/main.c:224:33: warning: pointer targets in passing argument 2 of 'HAL_UART_Transmit' differ in signedness [-Wpointer-sign]
-  224 |      HAL_UART_Transmit(&huart1, string, strlen(string), 100);
-      |                                 ^~~~~~
-      |                                 |
-      |                                 char *
-In file included from ../Core/Inc/stm32l0xx_hal_conf.h:280,
-                 from ../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal.h:30,
-                 from ../Core/Inc/main.h:31,
-                 from ../Core/Src/main.c:21:
-../Drivers/STM32L0xx_HAL_Driver/Inc/stm32l0xx_hal_uart.h:1488:73: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
- 1488 | HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-      |                                                                ~~~~~~~~~^~~~~
-../Core/Src/main.c:364:7: warning: statement with no effect [-Wunused-value]
-  364 |       0;
-      |       ^
-arm-none-eabi-g++ -o "SysBee_Test_Nucleo.elf" @"objects.list"   -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo\STM32L073RZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee_Test_Nucleo.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: SysBee_Test_Nucleo.elf
- 
+16:40:37 **** Incremental Build of configuration Debug for project SysBee_Test_Nucleo ****
+make -j8 all 
 arm-none-eabi-size   SysBee_Test_Nucleo.elf 
-arm-none-eabi-objdump -h -S  SysBee_Test_Nucleo.elf  > "SysBee_Test_Nucleo.list"
-arm-none-eabi-objcopy  -O binary  SysBee_Test_Nucleo.elf  "SysBee_Test_Nucleo.bin"
    text	   data	    bss	    dec	    hex	filename
   18768	    524	   2432	  21724	   54dc	SysBee_Test_Nucleo.elf
 Finished building: default.size.stdout
  
-Finished building: SysBee_Test_Nucleo.bin
- 
-Finished building: SysBee_Test_Nucleo.list
- 
 
-19:50:24 Build Finished. 0 errors, 9 warnings. (took 794ms)
+16:40:37 Build Finished. 0 errors, 0 warnings. (took 253ms)
 
