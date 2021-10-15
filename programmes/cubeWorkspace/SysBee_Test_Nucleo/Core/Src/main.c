@@ -131,6 +131,7 @@ static void MX_USART1_UART_Init(void);
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 void check_coordinator();
+void read_xbee();
 
 /* USER CODE END PFP */
 
@@ -371,6 +372,8 @@ int main(void)
 		  xbee_rx_read_index += 1;
 
 	  }
+
+	  read_xbee();
   }
   /* USER CODE END 3 */
 }
@@ -538,8 +541,120 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 }
 
-void check_coordinator(){
+void read_xbee(){
 
+  if(xbee_rx_read_index<xbee_rx_write_index){
+	  uint64_t sum = 0;
+	  static uint8_t multiple_byte_step;
+
+	  switch (xbee_receive_state){
+		  case idle:
+			  if(xbee_rx_buffer[xbee_rx_read_index] == 0x7E) xbee_receive_state = frame_length;
+			  /*else if (lora_requested && xbee_rx_buffer[xbee_rx_read_index] == 0xAA){
+				  is_coordinator = True;
+				  lora_requested = False;
+			  }*/
+		  break;
+
+		  case frame_length:
+			  received_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
+			  if(multiple_byte_step){
+				  multiple_byte_step = 0;
+				  xbee_receive_state = frame_type;
+			  }
+			  else{
+				  multiple_byte_step++;
+			  }
+		  break;
+
+		  case frame_type:
+			  received_frame.type = xbee_rx_buffer[xbee_rx_read_index];
+			  switch(received_frame.type){
+				  case receive_packet: xbee_receive_state = frame_address64; break;
+				  case remote_command_response: xbee_receive_state = frame_id; break;
+				  default: xbee_rx_read_index = xbee_rx_write_index;
+						   xbee_receive_state = idle;
+				  break;
+			  }
+
+			  multiple_byte_step = 0;
+		  break;
+
+		  case frame_id:
+			  received_frame.id = xbee_rx_buffer[xbee_rx_read_index];
+			  xbee_receive_state = frame_address64;
+		  break;
+
+		  case frame_address64:
+			  received_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
+
+			  if(multiple_byte_step == 7){
+				  xbee_receive_state = frame_address16;
+				  multiple_byte_step = 0;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_address16:
+			  received_frame.address16 += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
+			  if(multiple_byte_step == 1){
+				  switch(received_frame.type){
+					  case receive_packet: xbee_receive_state = frame_option; break;
+					  case remote_command_response: xbee_receive_state = frame_at_status; break;
+					  default: xbee_rx_read_index = xbee_rx_write_index;
+							   xbee_receive_state = idle;
+					  break;
+				  }
+
+				  multiple_byte_step = 0;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_option:
+			  received_frame.option = xbee_rx_buffer[xbee_rx_read_index];
+			  xbee_receive_state = frame_content;
+		  break;
+
+		  case frame_at_status:
+			  received_frame.command_status[multiple_byte_step] = xbee_rx_buffer[xbee_rx_read_index];
+			  if(multiple_byte_step == 2){
+				  multiple_byte_step = 0;
+				  xbee_receive_state = frame_content;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_content:
+			  received_frame.content[received_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+			  if(((received_frame.content_index == received_frame.length-13) && received_frame.type==receive_packet) || ((received_frame.content_index == received_frame.length-16) && (received_frame.type==remote_command_response)))
+				  xbee_receive_state = check_sum;
+			  else
+				  received_frame.content_index++;
+		  break;
+
+		  case check_sum:
+			  received_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
+			  for(uint8_t i=0; i<8; i++) sum += (((uint64_t)0xFF<<(56-8*i)) & received_frame.address64)>>(56-8*i);
+			  for(uint8_t i=0; i<2; i++) sum += (((uint16_t)0xFF<<(8-8*i)) & received_frame.address16)>>(8-i*8);
+			  if(received_frame.id==receive_packet) for(uint16_t i=0; i<received_frame.length-12; i++) sum += received_frame.content[i];
+			  else if(received_frame.type==remote_command_response){
+				  for(uint16_t i=0; i<received_frame.length-15; i++) sum += received_frame.content[i];
+				  for(uint8_t i=0; i<4; i++) sum += received_frame.command_status[i];
+			  }
+			  sum += received_frame.type + received_frame.option + received_frame.id + received_frame.check_sum;
+			  received_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
+			  xbee_receive_state = idle;
+		  break;
+
+		  case process_content:
+			  0;
+		  break;
+	  }
+
+	  xbee_rx_read_index += 1;
+
+  }
 }
 
 /* USER CODE END 4 */

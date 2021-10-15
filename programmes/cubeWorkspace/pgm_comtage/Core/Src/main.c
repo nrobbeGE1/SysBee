@@ -38,8 +38,9 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
-#define bee_rate_fine_polling_threshold 200 //in bee per minute
-#define bee_rate_alert_threshold 1000
+#define bee_rate_fine_polling_threshold 2 //in bee per DT
+#define bee_rate_alert_threshold 5 //in bee per DT
+#define DT 10 //in seconds
 
 #define transmit_request 0x10
 #define receive_packet 0x90
@@ -61,12 +62,24 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi2;
+
+TIM_HandleTypeDef htim3;
+
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart5;
 
 /* USER CODE BEGIN PV */
 
-enum {lora_init, master_idle, sparse_polling, fine_polling, lora_alert} master_state;
+enum {
+	lora_init,
+	xbee_init,
+	master_idle,
+	sparse_polling,
+	fine_polling,
+	lora_alert
+} master_state = lora_init;
+
 
 uint8_t sensor_pair[16][2] = {
  //exterior, interior
@@ -93,7 +106,7 @@ typedef enum {A, B, C, D} sensors_states;
 sensors_states sensors_state[16] = {A};
 
 long int bee_count;
-uint16_t bee_rate;
+int16_t bee_rate;
 
 uint8_t lora_status = {0};
 uint8_t cr_flag=0;
@@ -128,7 +141,7 @@ enum xbee_send_states {
 	single_command,
 	single_command_ok,
 	config_over
-} xbee_send_state;
+} xbee_send_state = enter_command_mode;
 
 enum xbee_receive_states {
 	idle,
@@ -169,6 +182,8 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART5_UART_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_TIM3_Init(void);
+static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -184,7 +199,7 @@ void check_coordinator();
 void invert_lsB_msB(uint64_t*, uint8_t);
 void xbee_send_string(uint8_t * string);
 void xbee_send_alert();
-
+void read_xbee();
 
 /* USER CODE END 0 */
 
@@ -218,7 +233,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART5_UART_Init();
   MX_USART2_UART_Init();
+  MX_TIM3_Init();
+  MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_TIM_Base_Start_IT(&htim3);
 
   HAL_GPIO_WritePin(GPIOB, LED_R, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOB, LED_V, GPIO_PIN_RESET);
@@ -228,107 +247,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart5, &xbee_rx_last_byte, 1);
 
 //  xbee_send_state = config_over;
-  xbee_send_state = enter_command_mode;
-  while(xbee_send_state != config_over){
-	  static uint16_t timeout;
-	  char string[50] = {0};
-	  switch(xbee_send_state){
 
-		  case enter_command_mode:
-			  HAL_GPIO_TogglePin (GPIOB, GPIO_PIN_2);
-			  HAL_UART_Transmit(&huart5, "+++", 3, 100);
-			  timeout = 0;
-			  xbee_send_state = command_mode_ok;
-		  break;
-
-		  case command_mode_ok:
-			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
-					  xbee_send_state = single_command;
-					  HAL_Delay(10);
-					  timeout = 0;
-				  }
-				  cr_flag = 0;
-			  }
-			  else {
-				  HAL_Delay(1);
-				  timeout++;
-				  if (timeout >= timeout_duration)
-					  xbee_send_state = enter_command_mode;
-			  }
-		  break;
-
-		  case single_command:
-			  if (xbee_reset==0){
-				  HAL_UART_Transmit(&huart5, "ATRE\r", 5, 100);
-				  xbee_reset = 1;
-			  }
-			  timeout = 0;
-			  xbee_send_state = single_command_ok;
-		  break;
-
-		  case single_command_ok:
-			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
-					  xbee_send_state = send_config;
-					  HAL_Delay(10);
-					  timeout = 0;
-				  }
-				  cr_flag = 0;
-			  }
-			  else {
-				  HAL_Delay(1);
-				  timeout++;
-				  if (timeout >= timeout_duration)
-					  xbee_send_state = enter_command_mode;
-			  }
-		  break;
-
-		  case send_config:
-
-			  if(config_step == config_length){
-				  sprintf(string, "ATWR\r");
-			  }
-			  else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]);
-
-
-			  HAL_UART_Transmit(&huart5, string, strlen(string), 100);
-			  xbee_send_state = config_ok;
-		  break;
-
-		  case config_ok:
-			  if(cr_flag){
-				  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
-					  if(config_step == config_length){
-						  HAL_GPIO_WritePin(GPIOB, LED_R, GPIO_PIN_RESET);
-						  HAL_GPIO_WritePin(GPIOB, LED_V, GPIO_PIN_SET);
-						  xbee_send_state = config_over;
-					  }
-					  else {
-						  timeout = 0;
-						  config_step++;
-						  xbee_send_state = send_config;
-						  HAL_Delay(10);
-					  }
-				  }
-				  cr_flag = 0;
-			  }
-			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
-
-			  }
-			  else {
-				  HAL_Delay(1);
-				  timeout++;
-				  if (timeout >= timeout_duration){
-					  xbee_send_state = enter_command_mode;
-					  //config_step = 0;
-				  }
-			  }
-		  break;
-
-		  default: break;
-	  }
-  }
 
   /* USER CODE END 2 */
 
@@ -339,13 +258,124 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  master_state = fine_polling;
+	  static uint16_t timeout;
+	  char string[50] = {0};
 
 	  switch(master_state){
-	  	  case lora_init: ;
+	  	  case lora_init:
+	  		  master_state = xbee_init;
 	  	  break;
+	  	  case xbee_init:
+
+			  switch(xbee_send_state){
+
+				  case enter_command_mode:
+					  HAL_GPIO_TogglePin (GPIOB, GPIO_PIN_2);
+					  HAL_UART_Transmit(&huart5, "+++", 3, 100);
+					  timeout = 0;
+					  xbee_send_state = command_mode_ok;
+				  break;
+
+				  case command_mode_ok:
+					  if(cr_flag){
+						  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
+							  xbee_send_state = single_command;
+							  HAL_Delay(10);
+							  timeout = 0;
+						  }
+						  cr_flag = 0;
+					  }
+					  else {
+						  HAL_Delay(1);
+						  timeout++;
+						  if (timeout >= timeout_duration)
+							  xbee_send_state = enter_command_mode;
+					  }
+				  break;
+
+				  case single_command:
+					  if (xbee_reset==0){
+						  HAL_UART_Transmit(&huart5, "ATRE\r", 5, 100);
+						  xbee_reset = 1;
+					  }
+					  timeout = 0;
+					  xbee_send_state = single_command_ok;
+				  break;
+
+				  case single_command_ok:
+					  if(cr_flag){
+						  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
+							  xbee_send_state = send_config;
+							  HAL_Delay(10);
+							  timeout = 0;
+						  }
+						  cr_flag = 0;
+					  }
+					  else {
+						  HAL_Delay(1);
+						  timeout++;
+						  if (timeout >= timeout_duration)
+							  xbee_send_state = enter_command_mode;
+					  }
+				  break;
+
+				  case send_config:
+
+					  if(config_step == config_length){
+						  sprintf(string, "ATWR\r");
+					  }
+					  else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]);
+
+
+					  HAL_UART_Transmit(&huart5, string, strlen(string), 100);
+					  xbee_send_state = config_ok;
+				  break;
+
+				  case config_ok:
+					  if(cr_flag){
+						  if(xbee_rx_buffer[cr_flag-2] == 'O' && xbee_rx_buffer[cr_flag-1] == 'K'){
+							  if(config_step == config_length){
+								  HAL_GPIO_WritePin(GPIOB, LED_R, GPIO_PIN_RESET);
+								  HAL_GPIO_WritePin(GPIOB, LED_V, GPIO_PIN_SET);
+								  xbee_send_state = config_over;
+								  master_state = fine_polling;
+								  xbee_rx_read_index = xbee_rx_write_index;
+							  }
+							  else {
+								  timeout = 0;
+								  config_step++;
+								  xbee_send_state = send_config;
+								  HAL_Delay(10);
+							  }
+						  }
+						  cr_flag = 0;
+					  }
+					  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+
+					  }
+					  else {
+						  HAL_Delay(1);
+						  timeout++;
+						  if (timeout >= timeout_duration){
+							  xbee_send_state = enter_command_mode;
+							  //config_step = 0;
+						  }
+					  }
+				  break;
+
+				  default:
+
+				  break;
+
+			  }
+	      break;
+
 	  	  case master_idle:
+	  		  HAL_Delay(1000);
+
+	  		  master_state = fine_polling;
 	  	  break;
+
 	  	  case sparse_polling:
 	  		  scan_sensors();
 	  		  HAL_Delay(10); //if a large amount of bees goes in or out
@@ -353,17 +383,23 @@ int main(void)
 	  			  master_state = fine_polling; //we'll trigger a fine_polling
 	  		  }
 	  	  break;
+
 	  	  case fine_polling:
 	  		  scan_sensors();
-	  		  if(bee_rate < -1*bee_rate_alert_threshold){
+	  		  if(bee_rate < -1*bee_rate_alert_threshold || bee_rate > bee_rate_alert_threshold){
 	  			  xbee_send_alert();
+	  			  bee_rate = 0;
 	  		  }
+	  	  break;
+
+	  	  case lora_alert: ;
 
 	  	  break;
-	  	  case lora_alert: ;
-	  	  break;
+
 	  	  default: break;
 	  }
+
+	  read_xbee();
   }
   /* USER CODE END 3 */
 }
@@ -414,6 +450,89 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_HARD_OUTPUT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 7;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 65535;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 4883;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+
 }
 
 /**
@@ -574,12 +693,16 @@ void scan_sensors(){
 			  if(sensor_pair_value == 0b01){
 				  sensors_state[8*j+i] = B;
 				  bee_count--;
-				  xbee_send_alert();
+//				  HAL_GPIO_WritePin(GPIOB, LED_R, 1);
+//				  HAL_GPIO_WritePin(GPIOB, LED_V, 0);
+//				  xbee_send_alert();
 			  }
 			  else if(sensor_pair_value == 0b10){
 				  sensors_state[8*j+i] = D;
 				  bee_count++;
-				  xbee_send_alert();
+//				  HAL_GPIO_WritePin(GPIOB, LED_R, 0);
+//				  HAL_GPIO_WritePin(GPIOB, LED_V, 1);
+//				  xbee_send_alert();
 			  }
 		  break;
 
@@ -611,7 +734,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	    HAL_UART_Receive_IT(&huart5, &xbee_rx_last_byte, 1);
 
 	}
+}
 
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	static long int bee_count_prev = 0;
+	if(htim == &htim3){
+		bee_rate = (bee_count - bee_count_prev);
+		bee_count_prev = bee_count;
+		HAL_GPIO_TogglePin(GPIOB, LED_V);
+	}
 }
 
 void check_coordinator(){
@@ -664,10 +795,141 @@ void xbee_send_string(uint8_t * string){
 	HAL_UART_Transmit(&huart5, &tx_frame.check_sum, 1, 100);
 }
 void xbee_send_alert(){
-	uint8_t string[25];
-	sprintf(string, "E%u_%li\n", (uint8_t)123, bee_count);
+	uint8_t string[256];
+	sprintf(string, "E %s %li %li\r", config[1][1], bee_count, bee_rate);
 	//xbee_send_string("n'importe quoi\n");
 	xbee_send_string(string);
+}
+
+
+void read_xbee(){
+  static struct frame received_frame = {0};
+
+  if(xbee_rx_read_index<xbee_rx_write_index){
+	  uint64_t sum = 0;
+	  static uint8_t multiple_byte_step;
+
+	  switch (xbee_receive_state){
+		  case idle:
+			  if(xbee_rx_buffer[xbee_rx_read_index] == 0x7E){
+				  xbee_receive_state = frame_length;
+			  }
+			  /*else if (lora_requested && xbee_rx_buffer[xbee_rx_read_index] == 0xAA){
+				  is_coordinator = True;
+				  lora_requested = False;
+			  }*/
+		  break;
+
+		  case frame_length:
+			  received_frame.length += ((uint16_t)(xbee_rx_buffer[xbee_rx_read_index])) << (8-8*multiple_byte_step) ;
+			  if(multiple_byte_step){
+				  multiple_byte_step = 0;
+				  xbee_receive_state = frame_type;
+			  }
+			  else{
+				  multiple_byte_step++;
+			  }
+		  break;
+
+		  case frame_type:
+			  received_frame.type = xbee_rx_buffer[xbee_rx_read_index];
+			  switch(received_frame.type){
+				  case receive_packet: xbee_receive_state = frame_address64; break;
+				  case remote_command_response: xbee_receive_state = frame_id; break;
+				  default: xbee_rx_read_index = xbee_rx_write_index;
+						   xbee_receive_state = idle;
+				  break;
+			  }
+
+			  multiple_byte_step = 0;
+		  break;
+
+		  case frame_id:
+			  received_frame.id = xbee_rx_buffer[xbee_rx_read_index];
+			  xbee_receive_state = frame_address64;
+		  break;
+
+		  case frame_address64:
+			  received_frame.address64 += ((uint64_t)xbee_rx_buffer[xbee_rx_read_index]) << (56-8*multiple_byte_step);
+
+			  if(multiple_byte_step == 7){
+				  xbee_receive_state = frame_address16;
+				  multiple_byte_step = 0;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_address16:
+			  received_frame.address16 += ((uint16_t)xbee_rx_buffer[xbee_rx_read_index]) << (8-8*multiple_byte_step);
+			  if(multiple_byte_step == 1){
+				  switch(received_frame.type){
+					  case receive_packet: xbee_receive_state = frame_option; break;
+					  case remote_command_response: xbee_receive_state = frame_at_status; break;
+					  default: xbee_rx_read_index = xbee_rx_write_index;
+							   xbee_receive_state = idle;
+					  break;
+				  }
+
+				  multiple_byte_step = 0;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_option:
+			  received_frame.option = xbee_rx_buffer[xbee_rx_read_index];
+			  xbee_receive_state = frame_content;
+		  break;
+
+		  case frame_at_status:
+			  received_frame.command_status[multiple_byte_step] = xbee_rx_buffer[xbee_rx_read_index];
+			  if(multiple_byte_step == 2){
+				  multiple_byte_step = 0;
+				  xbee_receive_state = frame_content;
+			  }
+			  else multiple_byte_step++;
+		  break;
+
+		  case frame_content:
+			  received_frame.content[received_frame.content_index] = xbee_rx_buffer[xbee_rx_read_index];
+			  if(((received_frame.content_index == received_frame.length-13) && received_frame.type==receive_packet) || ((received_frame.content_index == received_frame.length-16) && (received_frame.type==remote_command_response)))
+				  xbee_receive_state = check_sum;
+			  else
+				  received_frame.content_index++;
+		  break;
+
+		  case check_sum:
+			  received_frame.check_sum = xbee_rx_buffer[xbee_rx_read_index];
+			  for(uint8_t i=0; i<8; i++) sum += (((uint64_t)0xFF<<(56-8*i)) & received_frame.address64)>>(56-8*i);
+			  for(uint8_t i=0; i<2; i++) sum += (((uint16_t)0xFF<<(8-8*i)) & received_frame.address16)>>(8-i*8);
+			  if(received_frame.id==receive_packet) for(uint16_t i=0; i<received_frame.length-12; i++) sum += received_frame.content[i];
+			  else if(received_frame.type==remote_command_response){
+				  for(uint16_t i=0; i<received_frame.length-15; i++) sum += received_frame.content[i];
+				  for(uint8_t i=0; i<4; i++) sum += received_frame.command_status[i];
+			  }
+			  sum += received_frame.type + received_frame.option + received_frame.id + received_frame.check_sum;
+			  received_frame.check_sum_ok = (sum & 0xFF) == 0xFF;
+			  xbee_receive_state = process_content;
+		  break;
+
+		  case process_content:
+
+			  switch(received_frame.content[0]){
+			  	  case 'E':
+			  		  master_state = master_idle;
+			  		  xbee_receive_state = idle;
+			  	  break;
+			  }
+			  memset(&received_frame, 0, sizeof(received_frame));
+			  memset(&xbee_rx_buffer, 0, sizeof(xbee_rx_buffer));
+			  xbee_rx_read_index = 0;
+			  xbee_rx_write_index = 0;
+
+		  break;
+	  }
+
+	  xbee_rx_read_index += 1;
+
+  }
 }
 
 /* USER CODE END 4 */
