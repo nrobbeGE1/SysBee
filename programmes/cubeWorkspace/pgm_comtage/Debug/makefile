@@ -61,8 +61,8 @@ all: main-build
 main-build: pgm_comtage.elf secondary-outputs
 
 # Tool invocations
-pgm_comtage.elf: $(OBJS) $(USER_OBJS) C:\Users\antoine.serry\Desktop\Nouveau\ dossier\SysBee\programmes\cubeWorkspace\pgm_comtage\STM32L073CZTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "pgm_comtage.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\pgm_comtage\STM32L073CZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="pgm_comtage.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+pgm_comtage.elf: $(OBJS) $(USER_OBJS) C:\Documents\Travail\SysBee\programmes\cubeWorkspace\pgm_comtage\STM32L073CZTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "pgm_comtage.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Documents\Travail\SysBee\programmes\cubeWorkspace\pgm_comtage\STM32L073CZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="pgm_comtage.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

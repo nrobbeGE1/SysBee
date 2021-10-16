@@ -9,6 +9,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Documents\Travail\SysBee\programmes\cubeWorkspace\pgm_comtage"/>
 			<item value="C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace\SysBee_Test_Nucleo"/>
 			<item value="C:\Users\antoine.serry\Desktop\Nouveau dossier\SysBee\programmes\cubeWorkspace"/>
 			<item value="C:\Documents\Travail\SysBee\programmes\cubeWorkspace"/>
