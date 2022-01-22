@@ -132,8 +132,8 @@ uint8_t signals[5][20][2] = {
 		}, {
 				{0, 1}, //ok
 				{0, 0},
-				{0, 1},
 				{0, 0},
+				{0, 1},
 				{0, 0},
 				{0, 0},
 				{0, 0},
@@ -228,14 +228,17 @@ uint8_t lora_status = {0};
 uint8_t cr_flag=0;
 uint8_t xbee_rx_last_byte = 0;
 uint8_t xbee_rx_buffer[256] = {0};
-uint8_t xbee_rx_read_index = 0;
+uint8_t xbee_rx_read_index = 0xFF;
 uint8_t xbee_rx_write_index = 0;
 
+//tableau des parametres envoyés au xBee
+//pour chaque config_step de 0 à config_length exclu
+//-->envoie "AT"+ config[config_step][0] + config[config_step][1]
+
 uint8_t config[20][2][10] = {
-	{"ID", "1111"}, // network id
-	{"NI", "maison"}, // node id
+	{"ID", "1230"}, // network id
+	{"NI", "abeille2"}, // node id
 	{"CE", "0"},	// coordinator mode
-	{"ID", "1111"}, // network id
 	{"AP", "1"},  	// API enable
 	{"SP", "20"},	// cyclic sleep period
 	{"SN", "100"},  // number of sleep periods
@@ -245,7 +248,7 @@ uint8_t config[20][2][10] = {
 uint8_t config_step = 0;
 uint8_t xbee_reset = 0;
 
-uint8_t config_length = 9;
+uint8_t config_length = 8;
 
 enum xbee_send_states {
 	enter_command_mode,
@@ -269,7 +272,7 @@ enum xbee_receive_states {
 	frame_content,
 	check_sum,
 	process_content
-} xbee_receive_state;
+} xbee_receive_state = idle;
 
 enum signal_states {
 	signal_off,
@@ -514,7 +517,7 @@ int main(void)
 	  	  break;
 
 	  	  case fine_polling:
-	  		  signal_state = signal_ok;
+	  		  if (signal_state != signal_swarming ) signal_state = signal_ok;
 	  		  scan_sensors();
 	  		  if(bee_rate < -1*bee_rate_alert_threshold || bee_rate > bee_rate_alert_threshold){
 	  			  xbee_send_alert();
@@ -1105,6 +1108,10 @@ void read_xbee(){
 			  switch(received_frame.content[0]){
 			  	  case 'E':
 			  		  master_state = lora_alert;
+			  	  break;
+			  	  case 'R':
+			  		  master_state = sparse_polling;
+			  		  signal_state = signal_ok;
 			  	  break;
 			  }
 	  		  xbee_receive_state = idle;
