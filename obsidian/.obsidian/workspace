@@ -1,0 +1,99 @@
+{
+  "main": {
+    "id": "4c566c63086a60f4",
+    "type": "split",
+    "children": [
+      {
+        "id": "414c6a1fe8c83c4b",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "outils de developpement.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a457924d29385ebf",
+    "type": "split",
+    "children": [
+      {
+        "id": "941dc4ae57dee240",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b0c2b990ae0dfd3f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "75ba15f9622b99fc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e6a11c32cbeec175",
+    "type": "split",
+    "children": [
+      {
+        "id": "4a1705ed93712fa0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a55aed3552a327a5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "outils de developpement.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "414c6a1fe8c83c4b",
+  "lastOpenFiles": [
+    "outils de developpement.md",
+    "timing.md",
+    "firmware.md",
+    "documentation.md",
+    "cahier des charges.md",
+    "PCB.md"
+  ]
+}
