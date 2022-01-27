@@ -64,7 +64,7 @@ uint8_t xbee_rx_write_index = 0;
 
 uint8_t test_string[100] = { 0x7E, 0x00, 0x0F, 0x90, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xEE, 0xBA, 0xBA, 0x0D };
 
-uint8_t config[20][2][10] = {
+uint8_t config[20][2][10] = { 		//CONFIG INITIALE XBEE
 	{"ID", "1111"}, // network id
 	{"NI", "DEMOABC"}, // node id
 	{"CE", "0"},	// coordinator mode
@@ -78,7 +78,7 @@ uint8_t config_step;
 
 uint8_t config_length = 4;
 
-enum xbee_send_states {
+enum xbee_send_states {		//AUTOMATE DE CONFIG INITIALE XBEE
 	enter_command_mode,
 	command_mode_ok,
 	send_config,
@@ -174,74 +174,74 @@ int main(void)
 
   HAL_UART_Receive_IT(&huart1, &xbee_rx_last_byte, 1);
 
-  while(xbee_send_state != config_over){
+  while(xbee_send_state != config_over){	//TANT QUE LA CONFIG N'EST PAS FINIE
 	  static uint16_t timeout;
 	  char string[50] = {0};
 	  switch(xbee_send_state){
 
 		  case enter_command_mode:
-			  HAL_UART_Transmit(&huart1, "+++", 3, 100);
+			  HAL_UART_Transmit(&huart1, "+++", 3, 100);	//entrée en Command Mode
 			  timeout = 0;
 			  xbee_send_state = command_mode_ok;
 		  break;
 
 		  case command_mode_ok:
-			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){		//vérification que la réponse est "OK"
 				  xbee_send_state = single_command;
 			  	  timeout = 0;
 			  }
 			  else {
-				  HAL_Delay(1);
+				  HAL_Delay(1);		//si on n'obtient pas de "OK", on attend en incrémentant la variable de timeout
 				  timeout++;
 				  if (timeout >= timeout_duration)
-					  xbee_send_state = enter_command_mode;
+					  xbee_send_state = enter_command_mode;		//si on timeout, on recommence la config
 			  }
 		  break;
 
 		  case single_command:
-			  HAL_UART_Transmit(&huart1, "ATRE\r", 5, 100);
+			  HAL_UART_Transmit(&huart1, "ATRE\r", 5, 100);		//remise à défaut de tous les paramètres
 			  timeout = 0;
 			  xbee_send_state = single_command_ok;
 		  break;
 
 		  case single_command_ok:
-			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){		//vérifcation que la réponse est "OK"
 				  xbee_send_state = send_config;
 				  timeout = 0;
 			  }
 			  else {
-				  HAL_Delay(1);
+				  HAL_Delay(1); 	//si on n'obtient pas de "OK", on attend en incrémentant la variable de timeout
 				  timeout++;
 				  if (timeout >= timeout_duration)
-					  xbee_send_state = enter_command_mode;
+					  xbee_send_state = enter_command_mode; 	//si on timeout, on recommence la config
 			  }
 		  break;
 
 		  case send_config:
-			  if(config_step == config_length){
-				  sprintf(string, "ATWR\r");
+			  if(config_step == config_length){		//si config_step == 4 (4e étape de config) (config_step est incrémenté dans un autre état)
+				  sprintf(string, "ATWR\r");		//on écrit "ATWR" (commande Write) dans le tableau string
 			  }
-			  else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]);
-			  if(config_step==config_length){
+			  else sprintf(string, "AT%s%s\r", config[config_step][0], config[config_step][1]); 	//sinon on écrit dans string la commande AT de la ligne config_step de config[] (ex: ligne 0 -> ATID1111)
+			  if(config_step==config_length){	//si config_step = 4, alors config_step = 4? pas compris l'intérêt
 				  config_step = 4;
 			  }
-			  HAL_UART_Transmit(&huart1, string, strlen(string), 100);
+			  HAL_UART_Transmit(&huart1, string, strlen(string), 100);		//envoie string (soit ATWR soit une autre commande de config) à la carte XBee
 			  xbee_send_state = config_ok;
 		  break;
 
 		  case config_ok:
-			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){
-				  if(config_step == config_length)
-					  xbee_send_state = config_over;
+			  if(xbee_rx_buffer[xbee_rx_write_index-2] == 'O' && xbee_rx_buffer[xbee_rx_write_index-1] == 'K'){ 	//vérifcation que la réponse est "OK"
+				  if(config_step == config_length)		//si config_step==4 alors config terminée -> pas d'écriture d'une partie du tableau de config...
+					  xbee_send_state = config_over;	//confi finie, on sort du while()
 				  timeout = 0;
-				  config_step++;
-				  xbee_send_state = send_config;
+				  config_step++;	//sinon on incrémente config_step (pour envoyer la ligne suivante du tableau config, jusqu'à arriver à 4)
+				  xbee_send_state = send_config;	//on retourne à l'état send_config pour écrire dans string la nouvelle commande AT de config et l'envoyer
 			  }
 			  else {
-				  HAL_Delay(1);
+				  HAL_Delay(1);		//si on n'obtient pas de "OK", on attend en incrémentant la variable de timeout
 				  timeout++;
 				  if (timeout >= timeout_duration)
-					  xbee_send_state = enter_command_mode;
+					  xbee_send_state = enter_command_mode;		//si on timeout, on recommence la config
 			  }
 		  break;
 
