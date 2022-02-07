@@ -7,8 +7,12 @@
         "id": "414c6a1fe8c83c4b",
         "type": "leaf",
         "state": {
-          "type": "graph",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "to-do avant PCB.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -49,8 +53,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "e6a11c32cbeec175",
@@ -66,6 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "to-do avant PCB.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -85,6 +89,7 @@
   },
   "active": "414c6a1fe8c83c4b",
   "lastOpenFiles": [
+    "to-do avant PCB.md",
     "PCB.md",
     "Documentation & Outils/cahier des charges.md",
     "Documentation & Outils/DMA.md",
@@ -93,7 +98,6 @@
     "documentation.md",
     "Documentation & Outils/Setup XBee.md",
     "Documentation & Outils/outils de developpement.md",
-    "to-do avant PCB.md",
     "Code/main.c Rx DMA avec ReceiveToIdle_DMA (à nettoyer).md"
   ]
 }
