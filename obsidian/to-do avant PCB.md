@@ -17,4 +17,4 @@ Objectif: se donner toutes les ressources pour (bien) faire le PCB en one-shot
 		-Ajout d'autres capteurs (connecteurs bus OneWire) ✔️
 		-Switch booloader -> à remplacer par header 2 pin (+ cavalier) ✔️
 		-Bouton reset -> à remplacer par header 2 pin (+ cavalier) ✔️
-		-Choix coordinateur -> header (+ cavalier) (choix de pin à faire)
+		-Choix coordinateur -> header (+ cavalier) (choix de pin à faire) ✔️
