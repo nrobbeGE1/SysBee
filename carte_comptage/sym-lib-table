@@ -1,3 +1,4 @@
 (sym_lib_table
-  (lib (name carte_comptage-rescue)(type Legacy)(uri ${KIPRJMOD}/carte_comptage-rescue.lib)(options "")(descr ""))
+  (lib (name "carte_comptage-rescue")(type "Legacy")(uri "${KIPRJMOD}/carte_comptage-rescue.lib")(options "")(descr ""))
+  (lib (name "JST")(type "KiCad")(uri "${KIPRJMOD}/JST.kicad_sym")(options "")(descr ""))
 )
