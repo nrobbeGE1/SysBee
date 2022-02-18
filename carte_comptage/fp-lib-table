@@ -1,5 +1,6 @@
 (fp_lib_table
-  (lib (name TPS54331D)(type KiCad)(uri "${KIPRJMOD}/Modeles et symboles/TPS54331D")(options "")(descr ""))
-  (lib (name USB4105-GF-A)(type KiCad)(uri "${KIPRJMOD}/Modeles et symboles/USB4105-GF-A")(options "")(descr ""))
-  (lib (name MC33269ST-3)(type KiCad)(uri "${KIPRJMOD}/Modeles et symboles/MC33269ST-3.3T3G")(options "")(descr ""))
+  (lib (name "TPS54331D")(type "KiCad")(uri "${KIPRJMOD}/Modeles et symboles/TPS54331D")(options "")(descr ""))
+  (lib (name "USB4105-GF-A")(type "KiCad")(uri "${KIPRJMOD}/Modeles et symboles/USB4105-GF-A")(options "")(descr ""))
+  (lib (name "MC33269ST-3")(type "KiCad")(uri "${KIPRJMOD}/Modeles et symboles/MC33269ST-3.3T3G")(options "")(descr ""))
+  (lib (name "Logo_IUT_Cachan")(type "KiCad")(uri "C:/Users/nicor/Documents/KiCad/6.0/footprints/Logo_IUT_Cachan.pretty")(options "")(descr ""))
 )
