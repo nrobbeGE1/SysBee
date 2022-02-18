@@ -1,3 +1,4 @@
+[[to-do avant PCB]]
 Reprendre le PCB
 1. connecteur LORA
 2. footprint xbee
@@ -6,6 +7,4 @@ Reprendre le PCB
 5. fabriquer la carte
 6. souder
 7. tester
-
-[[timing]]
 
