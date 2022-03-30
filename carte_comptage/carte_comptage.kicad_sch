@@ -5079,7 +5079,7 @@
     (property "Reference" "SwBoot1" (id 0) (at 262.7884 65.9892 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "RESET" (id 1) (at 260.477 65.9892 90)
+    (property "Value" "BOOT" (id 1) (at 260.477 65.9892 90)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (id 2) (at 261.62 59.69 0)
@@ -5675,7 +5675,7 @@
       (reference "SWrst1") (unit 1) (value "RESET") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
     )
     (path "/27f295c8-a327-467e-9817-2fd5b63dcff9"
-      (reference "SwBoot1") (unit 1) (value "RESET") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
+      (reference "SwBoot1") (unit 1) (value "BOOT") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-0000616ff789/00000000-0000-0000-0000-000061324d32"
       (reference "U1") (unit 1) (value "QRE1113GR") (footprint "OptoDevice:OnSemi_CASE100CY")

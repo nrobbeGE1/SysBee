@@ -7,3 +7,5 @@ séparations entre les tunnels
 
 mise en plan
 exporter en .dxf
+
+distance capteur - abeilles  : 8mm
