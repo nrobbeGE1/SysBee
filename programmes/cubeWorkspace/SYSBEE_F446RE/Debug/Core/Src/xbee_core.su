@@ -1,0 +1,6 @@
+xbee_core.c:10:20:XbeeSendFrame	40	static
+xbee_core.c:20:6:invert_lsB_msB	80	static
+xbee_core.c:30:6:xbee_send_string	328	static
+xbee_core.c:68:20:XbeeConfig	16	static
+xbee_core.c:116:20:XbeeSendCmdWaitOk	32	static
+xbee_core.c:161:20:XbeeSendCmdWaitResp	32	static
