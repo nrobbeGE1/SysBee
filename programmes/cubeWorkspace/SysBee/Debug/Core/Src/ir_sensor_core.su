@@ -1,0 +1,4 @@
+../Core/Src/ir_sensor_core.c:45:6:select_mux	16	static
+../Core/Src/ir_sensor_core.c:52:6:scan_sensors	16	static
+../Core/Src/ir_sensor_core.c:58:6:scan_sensor_unit	32	static
+../Core/Src/ir_sensor_core.c:214:6:debug_sensor_unit	80	static

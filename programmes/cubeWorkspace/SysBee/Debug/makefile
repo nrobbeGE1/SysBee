@@ -60,8 +60,8 @@ all: main-build
 main-build: SysBee.elf secondary-outputs
 
 # Tool invocations
-SysBee.elf SysBee.map: $(OBJS) $(USER_OBJS) C:\Users\nicor\STM32CubeIDE\workspace_1.8.0\SysBee\STM32L073CZTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SysBee.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\nicor\STM32CubeIDE\workspace_1.8.0\SysBee\STM32L073CZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+SysBee.elf SysBee.map: $(OBJS) $(USER_OBJS) C:\Users\nicor\Documents\GitHub\SysBee\programmes\cubeWorkspace\SysBee\STM32L073CZTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "SysBee.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m0plus -T"C:\Users\nicor\Documents\GitHub\SysBee\programmes\cubeWorkspace\SysBee\STM32L073CZTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SysBee.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

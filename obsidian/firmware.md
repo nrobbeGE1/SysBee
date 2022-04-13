@@ -9,4 +9,8 @@ DMA
 Développement du firmware
 
 
+timers : f = 2.097 MHz
 
+f(update_trafic()) = (2,097.10^6)/65535.320 = 0,099 Hz
+f(update_led()) = (2,097.10^6)/65535.15 = 2,133 Hz
+f(scan_sensors()) = (2,097.10^6)/8192.3 = 85 Hz

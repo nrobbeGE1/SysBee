@@ -1,0 +1,4 @@
+../Core/Src/sysbee_app.c:124:6:update_trafic	8	static
+../Core/Src/sysbee_app.c:153:6:xbee_send_alert	8	static
+../Core/Src/sysbee_app.c:157:6:update_led	8	static
+../Core/Src/sysbee_app.c:164:6:sysbee_app_fsm	8	static

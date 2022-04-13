@@ -31,12 +31,18 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include "xbee_core.h"
-#include "string.h"
+
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+
+extern  ADC_HandleTypeDef hadc;
+
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim21;
 
 
 extern UART_HandleTypeDef huart1;
@@ -45,6 +51,8 @@ extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart1_tx;
 extern int16_t traqueur;
 
+extern uint8_t scan_abeilles_flag; //se met à 1 dans la fonction d'interruption : HAL_TIM_PeriodElapsedCallback sur tim21
+extern uint8_t calcul_trafic_flag; //se met à 1 dans la fonction d'interruption : HAL_TIM_PeriodElapsedCallback sur tim3
 extern uint8_t xbee_usart1_rx_flag; //se met à 1 dans la fonction callback : HAL_UARTEx_RxEventCallback
 extern uint8_t xbee_usart1_rx_size; //nombre d'octets reçu sur l'USART1
 extern uint8_t xbee_usart1_tx_flag; //se met à 1 dans la fonction callback : HAL_UARTEx_RxEventCallback
@@ -65,6 +73,12 @@ extern uint8_t xbee_usart1_tx_flag; //se met à 1 dans la fonction callback : HA
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+void lirexbee(void);
+void test_DMA(void);
+
+void update_led(); //gère les signaux et codes affichés sur les LEDs
+void update_trafic(); //met à jour delta_trafic
+void xbee_send_alert(); //bon ça va je vais pas tout expliquer non plus
 
 /* USER CODE END EFP */
 
@@ -91,7 +105,14 @@ void Error_Handler(void);
 #define LED_R_GPIO_Port GPIOB
 #define LED_V_Pin GPIO_PIN_10
 #define LED_V_GPIO_Port GPIOB
+#define USART_XBEE_TX_Pin GPIO_PIN_9
+#define USART_XBEE_TX_GPIO_Port GPIOA
+#define USART_XBEE_RX_Pin GPIO_PIN_10
+#define USART_XBEE_RX_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
+
+#define VIEW_DEBUG 1 //pour visualiser rapidement sur la liaison UART les abeilles sortantes/entrantes sur chaque porche, les valeurs des compteurs etc, passer cette constante à true
+#define PALIER_TRAFIC_ALERTE 5 //unité : abeilles/seconde, à définir en fonction de la population de la ruche
 
 /* USER CODE END Private defines */
 

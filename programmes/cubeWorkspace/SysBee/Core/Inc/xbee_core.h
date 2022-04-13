@@ -9,8 +9,6 @@
 #define INC_XBEE_CORE_H_
 
 #include "main.h"
-#include "string.h"
-#include "stdio.h"
 
 #define XBEE_CMD_MODE 			"+++"    //répond Ok
 #define XBEE_CMD_FACTORY_RESET	"ATRE\r" //répond Ok
@@ -32,22 +30,16 @@
 #define XBEE_FIELD					0
 #define XBEE_VALUE					1
 #define XBEE_FIELD_OR_VALUE_SIZE	5 //taille des chaines (champ ou valeurs)
-#define XBEE_MAX_FIELD_NUMBER		5 //nombre de champ à configurer
+#define XBEE_MAX_FIELD_NUMBER		5 //nombre de champs à configurer
 
 
-
-int8_t xbeeDefaultConfig[XBEE_MAX_FIELD_NUMBER][2][XBEE_FIELD_OR_VALUE_SIZE] = { //première dimension : ligne, deuxième dimension colonne, troisième dimension : taille de chaines champ 1 et champ 2
-	{"CH", "C"}, // network id
-	{"ID", "2022"}, // network id
-	{"NI", "C2"}, // node id
-	{"CE", "1"},	// coordinator mode
-	{"AP", "1"}  	// API enable
-
-};
+extern int8_t xbeeDefaultConfig[XBEE_MAX_FIELD_NUMBER][2][XBEE_FIELD_OR_VALUE_SIZE];
 
 typedef enum
 {
   XBEE_CMD_MODE_OK       = 0x00U,
+  XBEE_CONFIG_OK		 = 0x00U,
+  XBEE_CONFIG_ERROR		 = 0x01U,
   XBEE_CMD_MODE_ERROR    = 0x01U,
   XBEE_SEND_FRAME_OK     = 0x00U,
   XBEE_SEND_FRAME_ERROR  = 0x01U,
@@ -115,8 +107,8 @@ typedef union {
 	Trame_API_RXPacket_t	TrameAPITransmitRequest; //0x01
 } XbeeDMARxData_t;
 
-XbeeDMARxData_t XbeeRxData;
-XbeeDMATxData_t XbeeTxData;
+extern XbeeDMARxData_t XbeeRxData;
+extern XbeeDMATxData_t XbeeTxData;
 
 //uint8_t xbee_init(void);
 XBEE_StatusTypeDef XbeeConfig(void);
@@ -124,7 +116,6 @@ XBEE_StatusTypeDef XbeeSendCmdWaitOk(int8_t *commande);
 XBEE_StatusTypeDef XbeeSendCmdWaitResp(int8_t *commande, int8_t *resp);
 XBEE_StatusTypeDef XbeeSendFrame(void);
 //uint8_t xbee_send_data(la trame a envoyer);
-void invert_lsB_msB(uint64_t * var, uint8_t length);
 void xbee_send_string(uint8_t * string);
 
 

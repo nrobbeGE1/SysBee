@@ -1,5 +1,5 @@
-../Core/Src/xbee_core.c:10:20:XbeeSendFrame	40	static
-../Core/Src/xbee_core.c:30:6:xbee_send_string	336	static
-../Core/Src/xbee_core.c:68:20:XbeeConfig	16	static
-../Core/Src/xbee_core.c:116:20:XbeeSendCmdWaitOk	40	static
-../Core/Src/xbee_core.c:161:20:XbeeSendCmdWaitResp	40	static
+../Core/Src/xbee_core.c:26:20:XbeeSendFrame	40	static
+../Core/Src/xbee_core.c:36:6:xbee_send_string	336	static
+../Core/Src/xbee_core.c:74:20:XbeeConfig	8	static
+../Core/Src/xbee_core.c:106:20:XbeeSendCmdWaitOk	40	static
+../Core/Src/xbee_core.c:151:20:XbeeSendCmdWaitResp	40	static
