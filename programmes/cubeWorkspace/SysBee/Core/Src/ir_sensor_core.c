@@ -7,7 +7,7 @@
 
 #include "ir_sensor_core.h"
 
-#define SEUIL_DECLENCHEMENT 110
+#define SEUIL_DECLENCHEMENT 30
 sensors_states sensors_state[16] = {capteurs_libres};
 
 uint32_t compteur_abeilles_entrantes = 0;
@@ -19,7 +19,7 @@ uint8_t buffer_compteur_abeilles_sortantes[10];
 uint8_t compteur_etats_sortie[16]; //compteur dédié aux transitions de la sortie d'une abeille
 uint8_t compteur_etats_entree[16]; //compteur dédié aux transitions de l'entrée d'une abeille
 
-uint8_t buffer_rangee_active[2]; //Debug : permet la visualisation de la rangée sur laquelle un évènement ou une E/S a lieu
+uint8_t buffer_rangee_active[10]; //Debug : permet la visualisation de la rangée sur laquelle un évènement ou une E/S a lieu
 
 uint8_t sensor_pair[16][2] = { //rangées de capteurs, 0 étant la rangée côté µC et 15 la rangée la plus éloignée du µC
  //exterieur, interieur
@@ -42,7 +42,7 @@ uint8_t sensor_pair[16][2] = { //rangées de capteurs, 0 étant la rangée côt�
 };
 
 
-void select_mux(uint8_t sel){ //selection du
+void select_mux(uint8_t sel){ //selection de la bonne entrée du MUX
 	HAL_GPIO_WritePin(GPIOH, S0_Pin, (sel & 0b0001)>>0);
 	HAL_GPIO_WritePin(GPIOA, S1_Pin, (sel & 0b0010)>>1);
 	HAL_GPIO_WritePin(GPIOH, S2_Pin, (sel & 0b0100)>>2);
@@ -118,8 +118,13 @@ void scan_sensor_unit(uint8_t rangee_active) {
 		}
 	}
 
+	sprintf(buffer_rangee_active, "%d\r\n", sensor_pair_value);
+	HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
+
 	switch(sensors_state[rangee_active]) {
 				  case capteurs_libres:
+					  HAL_GPIO_WritePin(GPIOB, LED_R_Pin, 0);
+					  HAL_GPIO_WritePin(GPIOB, LED_V_Pin, 0);
 					  //visualisation sur la liaison UART pour Debug
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"capteurs libres rangee ", sizeof("capteurs libres rangee "), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
@@ -128,30 +133,36 @@ void scan_sensor_unit(uint8_t rangee_active) {
 					  compteur_etats_entree[rangee_active] = 0; //on réinitialise l'avancée dans le cycle d'entrée
 					  compteur_etats_sortie[rangee_active] = 0; //on réinitialise l'avancée dans le cycle de sortie
 
-					  if(sensor_pair_value == 0b01){ //si le capteur extérieur est occupé
+					  /*if(sensor_pair_value == 0b01){ //si le capteur extérieur est occupé
 						  compteur_etats_entree[rangee_active] += 1; //on avance dans le cycle d'entrée
-						  sensors_state[rangee_active] = exterieur_occupe;
-					  }
+						  //sensors_state[rangee_active] = exterieur_occupe;
+					  }*/
 
-					  else if(sensor_pair_value == 0b10){ //si le capteur intérieur est occupé
+					  if(sensor_pair_value == 0b10){ //si le capteur intérieur est occupé
 						  compteur_etats_sortie[rangee_active] += 1; //on avance dans le cycle de sortie
 						  sensors_state[rangee_active] = interieur_occupe;
+					  }
+					  else if (sensor_pair_value == 0b00) { //si les capteurs sont occupés
+					  	  compteur_etats_sortie[rangee_active] += 1; //on avance dans le cycle de sortie
+					  	  sensors_state[rangee_active] = capteurs_occupes;
 					  }
 				  break;
 
 				  case exterieur_occupe:
+					  HAL_GPIO_WritePin(GPIOB, LED_R_Pin, 0);
+					  HAL_GPIO_WritePin(GPIOB, LED_V_Pin, 1);
 					  //visualisation sur la liaison UART pour Debug
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"exterieur occupe rangee ", sizeof("exterieur occupe rangee "), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", sizeof("\r\n"), HAL_MAX_DELAY);
 
-					  if(sensor_pair_value == 0b00) { //si les capteurs sont occupés
+					  /*if(sensor_pair_value == 0b00) { //si les capteurs sont occupés
 						  compteur_etats_entree[rangee_active] += 1; //on avance dans le cycle d'entree
-						  sensors_state[rangee_active] = capteurs_occupes;
-					  }
+						  //sensors_state[rangee_active] = capteurs_occupes;
+					  }*/
 
-					  else if (sensor_pair_value == 0b11) { //si les capteurs sont libres
-						  if (compteur_etats_sortie[rangee_active] >= 3) { //si on a fait 3 ou + étapes dans le cycle de sortie
+					  if (sensor_pair_value == 0b11) { //si les capteurs sont libres
+						  if (compteur_etats_sortie[rangee_active] >= 1) { //si on a fait 3 ou + étapes dans le cycle de sortie
 							  compteur_abeilles_sortantes += 1; //une abeille est sortie, on incrémente le compteur
 
 							  //visualisation sur la liaison UART pour Debug
@@ -165,44 +176,52 @@ void scan_sensor_unit(uint8_t rangee_active) {
 				  break;
 
 				  case capteurs_occupes:
+					  HAL_GPIO_WritePin(GPIOB, LED_R_Pin, 1);
+					  HAL_GPIO_WritePin(GPIOB, LED_V_Pin, 1);
 					  //visualisation sur la liaison UART pour Debug
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"capteurs occupes rangee ", sizeof("capteurs occupes rangee "), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", sizeof("\r\n"), HAL_MAX_DELAY);
 
-					  if(sensor_pair_value == 0b10) { //si le capteur intérieur est occupé
+					  /*if(sensor_pair_value == 0b10) { //si le capteur intérieur est occupé
 						  compteur_etats_entree[rangee_active] += 1; //on avance dans le cycle d'entrée
-						  sensors_state[rangee_active] = interieur_occupe;
-					  }
+						  //sensors_state[rangee_active] = interieur_occupe;
+					  }*/
 
-					  else if (sensor_pair_value == 0b01) { //si le capteur extérieur est occupé
+					  if (sensor_pair_value == 0b01) { //si le capteur extérieur est occupé
 						  compteur_etats_sortie[rangee_active] += 1; //on avance dans le cycle de sortie
 						  sensors_state[rangee_active] = exterieur_occupe;
 					  }
 
-					  else if(sensor_pair_value == 0b11) { //si les capteurs sont libres
-						  sensors_state[rangee_active] = capteurs_libres;  //on revient à l'état capteurs_libres
-					  }
+					  /*else if(sensor_pair_value == 0b11) { //si les capteurs sont libres
+						  //sensors_state[rangee_active] = capteurs_libres;  //on revient à l'état capteurs_libres
+					  }*/
 				  break;
 
 				  case interieur_occupe:
+					  HAL_GPIO_WritePin(GPIOB, LED_R_Pin, 1);
+					  HAL_GPIO_WritePin(GPIOB, LED_V_Pin, 0);
 					  //visualisation sur la liaison UART pour Debug
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"interieur occupe rangee ", sizeof("interieur occupe rangee "), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
 					  //HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", sizeof("\r\n"), HAL_MAX_DELAY);
 
-					  if(sensor_pair_value == 0b11) { //si les capteurs sont libres
+					  /*if(sensor_pair_value == 0b11) { //si les capteurs sont libres
 						  if (compteur_etats_entree[rangee_active] >= 3) { //si on a fait 3 ou + étapes dans le cycle d'entrée
-							  compteur_abeilles_entrantes += 1; //une abeille est entree, on incrémente le compteur
+							  //compteur_abeilles_entrantes += 1; //une abeille est entree, on incrémente le compteur
 
 							  //visualisation sur la liaison UART pour Debug
 							  HAL_UART_Transmit(&huart2, (uint8_t*)"abeille entree rangee ", sizeof("abeille entree rangee "), HAL_MAX_DELAY);
 							  HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
 							  HAL_UART_Transmit(&huart2, (uint8_t*)"\r\n", sizeof("\r\n"), HAL_MAX_DELAY);
 						  }
-						  sensors_state[rangee_active] = capteurs_libres;  //on revient à l'état capteurs_libres
-					  }
+						  //sensors_state[rangee_active] = capteurs_libres;  //on revient à l'état capteurs_libres
+					  }*/
 
+					  if (sensor_pair_value == 0b01) { //si le capteur extérieur est occupé
+					  	  compteur_etats_sortie[rangee_active] += 1; //on avance dans le cycle de sortie
+					  	  sensors_state[rangee_active] = exterieur_occupe;
+					  }
 					  else if (sensor_pair_value == 0b00) { //si les capteurs sont occupés
 						  compteur_etats_sortie[rangee_active] += 1; //on avance dans le cycle de sortie
 						  sensors_state[rangee_active] = capteurs_occupes;
@@ -211,10 +230,15 @@ void scan_sensor_unit(uint8_t rangee_active) {
 			  }
 }
 
+
+void debug_sensors() {
+	for (int i = 0; i < 16; i ++) {
+		debug_sensor_unit(i);
+	}
+}
 void debug_sensor_unit(uint8_t rangee_active) {
 	uint8_t capteur_ext, capteur_int;
-	uint8_t buffer_capteur[50
-						   ];
+	uint8_t buffer_capteur[50];
 	  HAL_GPIO_WritePin(GPIOA, LED_EN_Pin, 1); //allume les LEDs des capteurs, à NE PAS OUBLIER !!! --> sinon pas de lecture :(
 	  select_mux(sensor_pair[rangee_active][0]);
 
@@ -235,7 +259,9 @@ void debug_sensor_unit(uint8_t rangee_active) {
 		capteur_int = (uint8_t)HAL_ADC_GetValue(&hadc); //lecture du capteur intérieur sur le MUX1
 		HAL_ADC_Stop(&hadc);
 
-		sprintf(buffer_capteur, "int %d ext%d\r\n", capteur_int, capteur_ext);
+		sprintf(buffer_rangee_active, "rangee %d ", rangee_active);
+		sprintf(buffer_capteur, "int %d ext %d\r\n", capteur_int, capteur_ext);
+		HAL_UART_Transmit(&huart2, buffer_rangee_active, sizeof(buffer_rangee_active), HAL_MAX_DELAY);
 		HAL_UART_Transmit(&huart2, buffer_capteur, sizeof(buffer_capteur), HAL_MAX_DELAY);
 }
 

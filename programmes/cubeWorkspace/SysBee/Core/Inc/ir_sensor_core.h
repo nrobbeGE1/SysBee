@@ -27,11 +27,12 @@ extern uint8_t buffer_compteur_abeilles_sortantes[10];
 extern uint8_t compteur_etats_sortie[16]; //compteur dédié aux transitions de la sortie d'une abeille
 extern uint8_t compteur_etats_entree[16]; //compteur dédié aux transitions de l'entrée d'une abeille
 
-extern uint8_t buffer_rangee_active[2]; //Debug : permet la visualisation de la rangée sur laquelle un évènement ou une E/S a lieu
+extern uint8_t buffer_rangee_active[10]; //Debug : permet la visualisation de la rangée sur laquelle un évènement ou une E/S a lieu
 
 void select_mux(uint8_t row_sel);
 void scan_sensors();
 void scan_sensor_unit(uint8_t rangee_active);
+void debug_sensors();
 void debug_sensor_unit(uint8_t rangee_active);
 
 

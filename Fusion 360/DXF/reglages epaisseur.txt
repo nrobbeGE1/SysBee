@@ -1,0 +1,1 @@
+epaisseur = 5 mm et epaisseur_planche_fixation = 3 mm

@@ -147,7 +147,11 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  //sysbee_app_fsm();
-	  scan_sensors();
+	  //scan_sensors();
+	  HAL_GPIO_WritePin(GPIOA, LED_EN_Pin, 1); //allume les LEDs des capteurs, à NE PAS OUBLIER !!! --> sinon pas de lecture :(
+	  scan_sensor_unit(15);
+	  //debug_sensors();
+	  HAL_Delay(100);
 
   }
   /* USER CODE END 3 */
